@@ -672,8 +672,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2gq-1a-xRX" customClass="KSTabView" customModule="KSTabView" customModuleProvider="target">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="2gq-1a-xRX" customClass="KSTabView" customModule="KSTabView" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="225" width="480" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="l0Y-HR-3C5"/>
+                                </constraints>
                             </customView>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="scb-kh-R46">
                                 <rect key="frame" x="68" y="156" width="76" height="32"/>
@@ -716,6 +719,11 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="2gq-1a-xRX" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="5KX-vC-oxZ"/>
+                            <constraint firstItem="2gq-1a-xRX" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="aN1-of-ij0"/>
+                            <constraint firstAttribute="trailing" secondItem="2gq-1a-xRX" secondAttribute="trailing" id="sJ2-fx-Rqg"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="tabView" destination="2gq-1a-xRX" id="kvd-J8-IL6"/>

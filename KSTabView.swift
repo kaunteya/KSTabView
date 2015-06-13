@@ -108,8 +108,8 @@ class KSTabView: NSControl {
                 formatString = "H:|[button(size)]"
             }
             leftButtonList.append(button)
-        }else if align == NSLayoutAttribute.Right {
-            if let rightButton = rightButtonList.first {
+        } else if align == NSLayoutAttribute.Right {
+            if let rightButton = rightButtonList.last {
                 viewsDictionary = ["button" : button, "rightButton" : rightButton]
                 formatString = "H:[button(size)]-[rightButton]"
             } else {
