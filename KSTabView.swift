@@ -99,17 +99,7 @@ class KSTabView: NSControl {
         
         var formatString: String!
         var viewsDictionary: [String: AnyObject]!
-        
-        if align == NSLayoutAttribute.Right {
-            if let rightButton = rightButtonList.first {
-                viewsDictionary = ["button" : button, "rightButton" : rightButton]
-                formatString = "H:[button(size)]-[rightButton]"
-            } else {
-                viewsDictionary = ["button": button]
-                formatString = "H:[button(size)]|"
-            }
-            rightButtonList.append(button)
-        } else if align == NSLayoutAttribute.Left {
+        if align == NSLayoutAttribute.Left {
             if let leftButton = leftButtonList.last {
                 viewsDictionary = ["button" : button, "leftButton" : leftButton]
                 formatString = "H:[leftButton]-[button(size)]"
@@ -118,6 +108,15 @@ class KSTabView: NSControl {
                 formatString = "H:|[button(size)]"
             }
             leftButtonList.append(button)
+        }else if align == NSLayoutAttribute.Right {
+            if let rightButton = rightButtonList.first {
+                viewsDictionary = ["button" : button, "rightButton" : rightButton]
+                formatString = "H:[button(size)]-[rightButton]"
+            } else {
+                viewsDictionary = ["button": button]
+                formatString = "H:[button(size)]|"
+            }
+            rightButtonList.append(button)
         }
         
         self.addConstraints(
