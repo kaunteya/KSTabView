@@ -6,7 +6,7 @@ KSTabView
 
 Usage
 -----
-Drag KSTabView.swift to you project.
+Drag `KSTabView.swift` to you project.
 
 In IB, drag a Custom View from Object Library. Change Class to KSTabView
 
