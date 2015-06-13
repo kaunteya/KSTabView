@@ -18,7 +18,7 @@ class ViewController: NSViewController {
     }
     @IBAction func addRight(sender: AnyObject) {
         tabView.removeRightButtons()
-        tabView.addButtonsRight(["Name": "name", "Age": "age"])
+        tabView.addButtonsRight(["Name": "name", "Age": "age", "Gender": "gender"])
     }
     @IBAction func leftClean(sender: AnyObject) {
         tabView.removeLeftButtons()
@@ -27,7 +27,4 @@ class ViewController: NSViewController {
     @IBAction func rightClean(sender: AnyObject) {
         tabView.removeRightButtons()
     }
-
-
 }
-
