@@ -673,10 +673,15 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="2gq-1a-xRX" customClass="KSTabView" customModule="KSTabView" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="225" width="480" height="45"/>
+                                <rect key="frame" x="0.0" y="245" width="480" height="25"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="l0Y-HR-3C5"/>
+                                    <constraint firstAttribute="height" constant="25" id="l0Y-HR-3C5"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                        <real key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </customView>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="scb-kh-R46">
                                 <rect key="frame" x="68" y="156" width="76" height="32"/>

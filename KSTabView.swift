@@ -10,11 +10,13 @@ import Foundation
 import Cocoa
 
 class KSTabView: NSControl {
-    static var backgroundColor: NSColor! = NSColor(calibratedRed: 5 / 255, green: 105 / 255, blue: 92 / 255, alpha: 1)
-    static var hoverColor: NSColor! = NSColor(calibratedRed: 5 / 255, green: 105 / 255, blue: 92 / 255, alpha: 1).colorWithAlphaComponent(0.8)
-    static var titleColor: NSColor! = NSColor(calibratedRed: 137/255, green: 185/255, blue: 175/255, alpha: 1.0)
-    static var selectionColor: NSColor! = NSColor.whiteColor()
-
+    @IBInspectable var backgroundColor: NSColor! = NSColor(calibratedRed: 5 / 255, green: 105 / 255, blue: 92 / 255, alpha: 1)
+    @IBInspectable var hoverColor: NSColor! = NSColor(calibratedRed: 5 / 255, green: 105 / 255, blue: 92 / 255, alpha: 1).colorWithAlphaComponent(0.8)
+    @IBInspectable var titleColor: NSColor! = NSColor(calibratedRed: 137/255, green: 185/255, blue: 175/255, alpha: 1.0)
+    @IBInspectable var selectionColor: NSColor! = NSColor.whiteColor()
+    
+    @IBInspectable var fontSize: CGFloat = 16
+    
     var leftButtonList = [KSButton]()
     var rightButtonList = [KSButton]()
     var currentButton: KSButton? {
@@ -50,7 +52,7 @@ class KSTabView: NSControl {
     }
     
     override func drawRect(dirtyRect: NSRect) {
-        KSTabView.backgroundColor.setFill()
+        backgroundColor.setFill()
         NSRectFillUsingOperation(dirtyRect, NSCompositingOperation.CompositeSourceOver)
     }
     
@@ -90,7 +92,7 @@ class KSTabView: NSControl {
     }
     
     func _pushButton(title: String, identifier: String?, align: NSLayoutAttribute) {
-        var button = KSButton(title, identifier)
+        var button = KSButton(title, identifier, tabView: self)
         button.target = self
         button.action = "buttonPressed:"
         self.addSubview(button)
@@ -165,7 +167,7 @@ extension KSTabView {
 //MARK: KSButton
 class KSButton: NSButton {
     var trackingArea: NSTrackingArea!
-
+    let parentTabView: KSTabView
     override func updateTrackingAreas() {
         super.updateTrackingAreas()
         if trackingArea == nil {
@@ -175,21 +177,22 @@ class KSButton: NSButton {
     }
     
     func setSelected(isIt: Bool) {
-        let color = isIt ? KSTabView.selectionColor : KSTabView.titleColor
+        let color = isIt ? parentTabView.selectionColor : parentTabView.titleColor
         self.attributedTitle = attributedString(color)
     }
     
-    init(_ title: String, _ identifier: String?) {
+    init(_ title: String, _ identifier: String?, tabView: KSTabView) {
+        parentTabView = tabView
         super.init(frame: NSZeroRect)
         self.title = title
         self.identifier = identifier
-        self.attributedTitle = attributedString(KSTabView.titleColor)
+        self.attributedTitle = attributedString(parentTabView.titleColor)
         (self.cell() as! NSButtonCell).bordered = false
         self.sizeToFit()
     }
     
     func attributedString(color: NSColor) -> NSAttributedString {
-        let font = NSFont.labelFontOfSize(18)
+        let font = NSFont.labelFontOfSize(parentTabView.fontSize)
         var colorTitle = NSMutableAttributedString(attributedString: self.attributedTitle)
         
         var titleRange = NSMakeRange(0, colorTitle.length)
@@ -199,19 +202,20 @@ class KSButton: NSButton {
     }
     
     required init?(coder: NSCoder) {
+        parentTabView =  NSView(frame: NSZeroRect) as! KSTabView
         super.init(coder: coder)
         
-        self.attributedTitle = attributedString(KSTabView.titleColor)
+        self.attributedTitle = attributedString(parentTabView.titleColor)
         
         (self.cell() as! NSButtonCell).bordered = false
     }
     
     override func mouseEntered(theEvent: NSEvent) {
-        (self.cell() as! NSButtonCell).backgroundColor = KSTabView.hoverColor
+        (self.cell() as! NSButtonCell).backgroundColor = parentTabView.hoverColor
     }
     
     override func mouseExited(theEvent: NSEvent) {
-        (self.cell() as! NSButtonCell).backgroundColor = KSTabView.backgroundColor
+        (self.cell() as! NSButtonCell).backgroundColor = parentTabView.backgroundColor
     }
 }
 
