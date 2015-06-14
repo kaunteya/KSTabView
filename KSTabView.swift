@@ -170,9 +170,10 @@ class KSButton: NSButton {
     let parentTabView: KSTabView
     override func updateTrackingAreas() {
         super.updateTrackingAreas()
-        if trackingArea == nil {
-            trackingArea = NSTrackingArea(rect: self.bounds, options: NSTrackingAreaOptions.MouseEnteredAndExited | NSTrackingAreaOptions.ActiveAlways, owner: self, userInfo: nil)
+        if trackingArea != nil {
+            self.removeTrackingArea(trackingArea)
         }
+        trackingArea = NSTrackingArea(rect: self.bounds, options: NSTrackingAreaOptions.MouseEnteredAndExited | NSTrackingAreaOptions.ActiveAlways, owner: self, userInfo: nil)
         self.addTrackingArea(trackingArea)
     }
     
