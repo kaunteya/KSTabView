@@ -12,6 +12,10 @@ class ViewController: NSViewController {
 
     @IBOutlet weak var tabView: KSTabView!
 
+    @IBAction func actionOccured(sender: NSView) {
+        println("\(sender.identifier) pressed")
+    }
+    
     @IBAction func addLeft(sender: AnyObject) {
         tabView.addButtonsLeft(["Reload": "reload", "Jump": "jump"])
     }
