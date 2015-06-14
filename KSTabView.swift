@@ -161,17 +161,17 @@ extension KSTabView {
             (self.cell() as! NSButtonCell).bordered = false
             self.sizeToFit()
             self.addSubview(underline)
+            
             underline.boxType = NSBoxType.Custom
             underline.borderWidth = 0
             underline.fillColor = NSColor.whiteColor()
             underline.hidden = true
             underline.translatesAutoresizingMaskIntoConstraints = false
-            let verticalConstraint = NSLayoutConstraint.constraintsWithVisualFormat("V:[view(3)]|", options: nil, metrics: nil, views: ["view": underline])
-            self.addConstraints(verticalConstraint)
+            let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:[view(3)]|", options: nil, metrics: nil, views: ["view": underline])
+            self.addConstraints(verticalConstraints)
             
-            let horizontalConstraint = NSLayoutConstraint.constraintsWithVisualFormat("H:[view(button)]", options: nil, metrics: nil, views: ["view": underline, "button": self])
-            self.addConstraints(horizontalConstraint)
-            
+            let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:[view(button)]", options: nil, metrics: nil, views: ["view": underline, "button": self])
+            self.addConstraints(horizontalConstraints)
         }
 
         func attributedString(color: NSColor) -> NSAttributedString {
