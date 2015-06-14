@@ -16,7 +16,7 @@ class KSTabView: NSControl {
     @IBInspectable var selectionColor: NSColor! = NSColor.whiteColor()
     
     @IBInspectable var fontSize: CGFloat = 16
-    
+    @IBInspectable var buttonPadding: CGFloat = 20
     var leftButtonList = [KSButton]()
     var rightButtonList = [KSButton]()
     var currentButton: KSButton? {
@@ -112,7 +112,7 @@ class KSTabView: NSControl {
         if align == NSLayoutAttribute.Left {
             if let leftButton = leftButtonList.last {
                 viewsDictionary = ["button" : button, "leftButton" : leftButton]
-                formatString = "H:[leftButton]-[button(size)]"
+                formatString = "H:[leftButton][button(size)]"
             } else {
                 viewsDictionary = ["button": button]
                 formatString = "H:|[button(size)]"
@@ -121,7 +121,7 @@ class KSTabView: NSControl {
         } else if align == NSLayoutAttribute.Right {
             if let rightButton = rightButtonList.last {
                 viewsDictionary = ["button" : button, "rightButton" : rightButton]
-                formatString = "H:[button(size)]-[rightButton]"
+                formatString = "H:[button(size)][rightButton]"
             } else {
                 viewsDictionary = ["button": button]
                 formatString = "H:[button(size)]|"
@@ -133,7 +133,7 @@ class KSTabView: NSControl {
             NSLayoutConstraint.constraintsWithVisualFormat(
                 formatString,
                 options: NSLayoutFormatOptions(0),
-                metrics: ["size": button.frame.size.width + 20],
+                metrics: ["size": button.frame.size.width + buttonPadding],
                 views: viewsDictionary)
         )
         self.addConstraints(
