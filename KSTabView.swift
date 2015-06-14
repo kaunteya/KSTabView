@@ -165,58 +165,59 @@ extension KSTabView {
 }
 
 //MARK: KSButton
-class KSButton: NSButton {
-    var trackingArea: NSTrackingArea!
-    let parentTabView: KSTabView
-    override func updateTrackingAreas() {
-        super.updateTrackingAreas()
-        if trackingArea != nil {
-            self.removeTrackingArea(trackingArea)
+extension KSTabView {
+    class KSButton: NSButton {
+        var trackingArea: NSTrackingArea!
+        let parentTabView: KSTabView
+        override func updateTrackingAreas() {
+            super.updateTrackingAreas()
+            if trackingArea != nil {
+                self.removeTrackingArea(trackingArea)
+            }
+            trackingArea = NSTrackingArea(rect: self.bounds, options: NSTrackingAreaOptions.MouseEnteredAndExited | NSTrackingAreaOptions.ActiveAlways, owner: self, userInfo: nil)
+            self.addTrackingArea(trackingArea)
         }
-        trackingArea = NSTrackingArea(rect: self.bounds, options: NSTrackingAreaOptions.MouseEnteredAndExited | NSTrackingAreaOptions.ActiveAlways, owner: self, userInfo: nil)
-        self.addTrackingArea(trackingArea)
-    }
-    
-    func setSelected(isIt: Bool) {
-        let color = isIt ? parentTabView.selectionColor : parentTabView.titleColor
-        self.attributedTitle = attributedString(color)
-    }
-    
-    init(_ title: String, _ identifier: String?, tabView: KSTabView) {
-        parentTabView = tabView
-        super.init(frame: NSZeroRect)
-        self.title = title
-        self.identifier = identifier
-        self.attributedTitle = attributedString(parentTabView.titleColor)
-        (self.cell() as! NSButtonCell).bordered = false
-        self.sizeToFit()
-    }
-    
-    func attributedString(color: NSColor) -> NSAttributedString {
-        let font = NSFont.labelFontOfSize(parentTabView.fontSize)
-        var colorTitle = NSMutableAttributedString(attributedString: self.attributedTitle)
         
-        var titleRange = NSMakeRange(0, colorTitle.length)
-        colorTitle.addAttribute(NSForegroundColorAttributeName, value: color, range: titleRange)
-        colorTitle.addAttribute(NSFontAttributeName, value: font, range: titleRange)
-        return colorTitle
-    }
-    
-    required init?(coder: NSCoder) {
-        parentTabView =  NSView(frame: NSZeroRect) as! KSTabView
-        super.init(coder: coder)
+        func setSelected(isIt: Bool) {
+            let color = isIt ? parentTabView.selectionColor : parentTabView.titleColor
+            self.attributedTitle = attributedString(color)
+        }
         
-        self.attributedTitle = attributedString(parentTabView.titleColor)
+        init(_ title: String, _ identifier: String?, tabView: KSTabView) {
+            parentTabView = tabView
+            super.init(frame: NSZeroRect)
+            self.title = title
+            self.identifier = identifier
+            self.attributedTitle = attributedString(parentTabView.titleColor)
+            (self.cell() as! NSButtonCell).bordered = false
+            self.sizeToFit()
+        }
         
-        (self.cell() as! NSButtonCell).bordered = false
-    }
-    
-    override func mouseEntered(theEvent: NSEvent) {
-        (self.cell() as! NSButtonCell).backgroundColor = parentTabView.hoverColor
-    }
-    
-    override func mouseExited(theEvent: NSEvent) {
-        (self.cell() as! NSButtonCell).backgroundColor = parentTabView.backgroundColor
+        func attributedString(color: NSColor) -> NSAttributedString {
+            let font = NSFont.labelFontOfSize(parentTabView.fontSize)
+            var colorTitle = NSMutableAttributedString(attributedString: self.attributedTitle)
+            
+            var titleRange = NSMakeRange(0, colorTitle.length)
+            colorTitle.addAttribute(NSForegroundColorAttributeName, value: color, range: titleRange)
+            colorTitle.addAttribute(NSFontAttributeName, value: font, range: titleRange)
+            return colorTitle
+        }
+        
+        required init?(coder: NSCoder) {
+            parentTabView =  NSView(frame: NSZeroRect) as! KSTabView
+            super.init(coder: coder)
+            
+            self.attributedTitle = attributedString(parentTabView.titleColor)
+            
+            (self.cell() as! NSButtonCell).bordered = false
+        }
+        
+        override func mouseEntered(theEvent: NSEvent) {
+            (self.cell() as! NSButtonCell).backgroundColor = parentTabView.hoverColor
+        }
+        
+        override func mouseExited(theEvent: NSEvent) {
+            (self.cell() as! NSButtonCell).backgroundColor = parentTabView.backgroundColor
+        }
     }
 }
-
