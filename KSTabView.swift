@@ -52,8 +52,7 @@ class KSTabView: NSControl {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         
-        underlineView = UnderLineView(frame: NSZeroRect)
-        underlineView.frame.size = NSMakeSize(0, 4)
+        underlineView = UnderLineView(height: 3)
         self.addSubview(underlineView)
     }
     
@@ -154,9 +153,11 @@ class KSTabView: NSControl {
 //MARK: KSButton
 extension KSTabView {
     class UnderLineView: NSBox {
-        override init(frame frameRect: NSRect) {
-            super.init(frame: frameRect)
+
+        init(height: CGFloat) {
+            super.init(frame: NSMakeRect(0, 0, 0, height))
             boxType = NSBoxType.Custom
+            borderWidth = 0
             fillColor = NSColor.whiteColor()
         }
         
