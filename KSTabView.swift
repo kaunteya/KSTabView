@@ -57,14 +57,10 @@ class KSTabView: NSControl {
         set(newIdentifierList) {
         
             switch selectionType {
-            case .None:()
-                return
             case .One:
                 if newIdentifierList.count > 1 {
-                    fatalError("Only one button can be selected")
+                    println("Only one button can be selected")
                 }
-            case .Any:()
-                
             default:()
             }
             
