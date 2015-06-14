@@ -17,6 +17,7 @@ class KSTabView: NSControl {
     
     @IBInspectable var fontSize: CGFloat = 16
     @IBInspectable var buttonPadding: CGFloat = 20
+    
     var leftButtonList = [KSButton]()
     var rightButtonList = [KSButton]()
     var currentButton: KSButton? {
@@ -32,21 +33,10 @@ class KSTabView: NSControl {
             return currentButton?.identifier
         }
         set(newIdentifier) {
-            if let newIdentifier = newIdentifier {
-                let foundInLeft: KSButton? = leftButtonList.filter { $0.identifier == newIdentifier }.first as KSButton?
-                if foundInLeft != nil {
-                    currentButton = foundInLeft
-                } else {
-                    let foundInRight: KSButton? = rightButtonList.filter { $0.identifier == newIdentifier }.first as KSButton?
-                    if foundInRight != nil {
-                        currentButton = foundInRight
-                    }
-                }
-            } else {
-                currentButton = nil
-            }
+            currentButton = (leftButtonList + rightButtonList).filter { $0.identifier == newIdentifier }.first as KSButton?
         }
     }
+
     var underlineView: UnderLineView!
     
     required init?(coder: NSCoder) {

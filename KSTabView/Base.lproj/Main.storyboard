@@ -736,6 +736,16 @@
                                     <action selector="setSelected:" target="XfG-lQ-9wD" id="Qga-rd-XDk"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yNj-Xy-b9u">
+                                <rect key="frame" x="325" y="13" width="134" height="32"/>
+                                <buttonCell key="cell" type="push" title="Clear Selection" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bj5-jY-py9">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="clearSelection:" target="XfG-lQ-9wD" id="U5C-eJ-XRs"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="2gq-1a-xRX" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="5KX-vC-oxZ"/>

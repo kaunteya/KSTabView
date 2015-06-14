@@ -22,11 +22,15 @@ class ViewController: NSViewController {
         tabView.removeLeftButtons()
     }
     
-    @IBAction func setSelected(sender: NSButton) {
-        tabView.selected = nil
-    }
-
     @IBAction func rightClean(sender: AnyObject) {
         tabView.removeRightButtons()
+    }
+
+    @IBAction func setSelected(sender: NSButton) {
+        tabView.selected = "age"
+    }
+    
+    @IBAction func clearSelection(sender: NSButton) {
+        tabView.selected = nil
     }
 }
