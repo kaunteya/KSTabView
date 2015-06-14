@@ -12,15 +12,23 @@ class ViewController: NSViewController {
 
     @IBOutlet weak var tabView: KSTabView!
 
-    @IBAction func actionOccured(sender: NSView) {
-        println("\(sender.identifier) pressed")
+    @IBAction func actionOccured(sender: NSString?) {
+        println("\(sender) pressed")
     }
     
     @IBAction func addLeft(sender: AnyObject) {
-        tabView.addButtonsLeft(["Reload": "reload", "Jump": "jump"])
+        tabView.removeLeftButtons()
+        tabView.pushButtonLeft("Reload", identifier: "reload")
+        tabView.pushButtonLeft("Jump", identifier: "jump")
+        tabView.selected = "jump"
     }
     @IBAction func addRight(sender: AnyObject) {
-        tabView.addButtonsRight(["Name": "name", "Age": "age", "Gender": "gender"])
+        tabView.removeRightButtons()
+        tabView.pushButtonRight("Name", identifier: "name")
+        tabView.pushButtonRight("Age", identifier: "age")
+        tabView.pushButtonRight("Gender", identifier: "gender")
+        tabView.pushButtonRight("Location", identifier: "location")
+        tabView.selected = "gender"
     }
     @IBAction func leftClean(sender: AnyObject) {
         tabView.removeLeftButtons()

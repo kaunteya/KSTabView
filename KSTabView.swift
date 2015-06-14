@@ -22,9 +22,9 @@ class KSTabView: NSControl {
     var rightButtonList = [KSButton]()
     var currentButton: KSButton? {
         didSet {
+            println("CurrentButton set")
             oldValue?.setSelected(false)
             currentButton?.setSelected(true)
-            underlineView.setForButton(currentButton)
         }
     }
 
@@ -37,20 +37,16 @@ class KSTabView: NSControl {
         }
     }
 
-    var underlineView: UnderLineView!
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
-        underlineView = UnderLineView(height: 3)
-        self.addSubview(underlineView)
     }
     
     override func drawRect(dirtyRect: NSRect) {
         backgroundColor.setFill()
         NSRectFillUsingOperation(dirtyRect, NSCompositingOperation.CompositeSourceOver)
     }
-    
+
     func removeLeftButtons() {
         for aButton in leftButtonList {
             aButton.removeFromSuperview()
@@ -61,6 +57,7 @@ class KSTabView: NSControl {
         leftButtonList.removeAll(keepCapacity: false)
         
     }
+
     func removeRightButtons() {
         for aButton in rightButtonList {
             aButton.removeFromSuperview()
@@ -69,23 +66,14 @@ class KSTabView: NSControl {
             }
         }
         rightButtonList.removeAll(keepCapacity: false)
-        
+    }
+
+    func pushButtonLeft(title: String, identifier: String) {
+        _pushButton(title, identifier: identifier, align: .Left)
     }
     
-    func addButtonsLeft(left: [String: String?]) {
-        removeLeftButtons()
-        for (title, identifier) in left {
-            _pushButton(title, identifier: identifier, align: .Left)
-        }
-        underlineView.bringToFront()
-    }
-    
-    func addButtonsRight(right: [String: String?]) {
-        removeRightButtons()
-        for (title, identifier) in right {
-            _pushButton(title, identifier: identifier, align: .Right)
-        }
-        underlineView.bringToFront()
+    func pushButtonRight(title: String, identifier: String) {
+        _pushButton(title, identifier: identifier, align: .Right)
     }
     
     func _pushButton(title: String, identifier: String?, align: NSLayoutAttribute) {
@@ -94,7 +82,6 @@ class KSTabView: NSControl {
         button.action = "buttonPressed:"
         self.addSubview(button)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.sizeToFit()
         
         var formatString: String!
         var viewsDictionary: [String: AnyObject]!
@@ -133,47 +120,10 @@ class KSTabView: NSControl {
                 views: ["button" : button])
         )
     }
-    
+
     func buttonPressed(sender: KSButton) {
         currentButton = sender
-        NSApplication.sharedApplication().sendAction(self.action, to: self.target, from: sender)
-    }
-}
-
-//MARK: KSButton
-extension KSTabView {
-    class UnderLineView: NSBox {
-
-        init(height: CGFloat) {
-            super.init(frame: NSMakeRect(0, 0, 0, height))
-            boxType = NSBoxType.Custom
-            borderWidth = 0
-            fillColor = NSColor.whiteColor()
-        }
-        
-        required init?(coder: NSCoder) {
-            super.init(coder: coder)
-        }
-
-        func bringToFront() {
-            if let superView = self.superview {
-                self.removeFromSuperview()
-                superView.addSubview(self)
-            }
-        }
-
-        func setForButton(button: KSButton?) {
-            if let button = button {
-                self.hidden = false
-                let oldLocation = self.frame.origin
-                self.frame.origin.x = button.frame.origin.x
-                
-                let oldSize = self.frame.size
-                self.frame.size.width = button.frame.width
-            } else {
-                self.hidden = true
-            }
-        }
+        NSApplication.sharedApplication().sendAction(self.action, to: self.target, from: sender.identifier as NSString?)
     }
 }
 
@@ -182,6 +132,8 @@ extension KSTabView {
     class KSButton: NSButton {
         var trackingArea: NSTrackingArea!
         let parentTabView: KSTabView
+        var underline = NSBox(frame: NSZeroRect)
+
         override func updateTrackingAreas() {
             super.updateTrackingAreas()
             if trackingArea != nil {
@@ -194,6 +146,7 @@ extension KSTabView {
         func setSelected(isIt: Bool) {
             let color = isIt ? parentTabView.selectionColor : parentTabView.titleColor
             self.attributedTitle = attributedString(color)
+            underline.hidden = !isIt
         }
         
         init(_ title: String, _ identifier: String?, tabView: KSTabView) {
@@ -204,8 +157,20 @@ extension KSTabView {
             self.attributedTitle = attributedString(parentTabView.titleColor)
             (self.cell() as! NSButtonCell).bordered = false
             self.sizeToFit()
+            self.addSubview(underline)
+            underline.boxType = NSBoxType.Custom
+            underline.borderWidth = 0
+            underline.fillColor = NSColor.whiteColor()
+            underline.hidden = true
+            underline.translatesAutoresizingMaskIntoConstraints = false
+            let verticalConstraint = NSLayoutConstraint.constraintsWithVisualFormat("V:[view(3)]|", options: nil, metrics: nil, views: ["view": underline])
+            self.addConstraints(verticalConstraint)
+            
+            let horizontalConstraint = NSLayoutConstraint.constraintsWithVisualFormat("H:[view(button)]", options: nil, metrics: nil, views: ["view": underline, "button": self])
+            self.addConstraints(horizontalConstraint)
+            
         }
-        
+
         func attributedString(color: NSColor) -> NSAttributedString {
             let font = NSFont.labelFontOfSize(parentTabView.fontSize)
             var colorTitle = NSMutableAttributedString(attributedString: self.attributedTitle)
