@@ -21,15 +21,25 @@ class KSTabView: NSControl {
     var rightButtonList = [KSButton]()
     var currentButton: KSButton? {
         didSet {
-            if let _ = currentButton {
-                oldValue?.setSelected(false)
-                currentButton!.setSelected(true)
-                if underlineView.hidden {
-                    underlineView.hidden = false
-                }
-                self.setUnderScoreBelow(currentButton!)
+            oldValue?.setSelected(false)
+            currentButton?.setSelected(true)
+            underlineView.setForButton(currentButton)
+        }
+    }
+
+    var selected: String? {
+        get {
+            return currentButton?.identifier
+        }
+        set(newIdentifier) {
+            let foundInLeft: KSButton? = leftButtonList.filter { $0.identifier == newIdentifier }.first as KSButton?
+            if foundInLeft != nil {
+                currentButton = foundInLeft
             } else {
-                underlineView.hidden = true
+                let foundInRight: KSButton? = rightButtonList.filter { $0.identifier == newIdentifier }.first as KSButton?
+                if foundInRight != nil {
+                    currentButton = foundInRight
+                }
             }
         }
     }
@@ -41,14 +51,6 @@ class KSTabView: NSControl {
         underlineView = UnderLineView(frame: NSZeroRect)
         underlineView.frame.size = NSMakeSize(0, 4)
         self.addSubview(underlineView)
-    }
-    
-    func setUnderScoreBelow(button: NSButton) {
-        let oldLocation = underlineView.frame.origin
-        underlineView.frame.origin.x = button.frame.origin.x
-        
-        let oldSize = underlineView.frame.size
-        underlineView.frame.size.width = button.frame.width
     }
     
     override func drawRect(dirtyRect: NSRect) {
@@ -78,6 +80,7 @@ class KSTabView: NSControl {
     }
     
     func addButtonsLeft(left: [String: String?]) {
+        removeLeftButtons()
         for (title, identifier) in left {
             _pushButton(title, identifier: identifier, align: .Left)
         }
@@ -85,6 +88,7 @@ class KSTabView: NSControl {
     }
     
     func addButtonsRight(right: [String: String?]) {
+        removeRightButtons()
         for (title, identifier) in right {
             _pushButton(title, identifier: identifier, align: .Right)
         }
@@ -155,10 +159,23 @@ extension KSTabView {
         required init?(coder: NSCoder) {
             super.init(coder: coder)
         }
+
         func bringToFront() {
             if let superView = self.superview {
                 self.removeFromSuperview()
                 superView.addSubview(self)
+            }
+        }
+
+        func setForButton(button: KSButton?) {
+            if let button = button {
+                let oldLocation = self.frame.origin
+                self.frame.origin.x = button.frame.origin.x
+                
+                let oldSize = self.frame.size
+                self.frame.size.width = button.frame.width
+            } else {
+                self.frame.size.width = 0
             }
         }
     }
