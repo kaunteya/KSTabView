@@ -32,14 +32,18 @@ class KSTabView: NSControl {
             return currentButton?.identifier
         }
         set(newIdentifier) {
-            let foundInLeft: KSButton? = leftButtonList.filter { $0.identifier == newIdentifier }.first as KSButton?
-            if foundInLeft != nil {
-                currentButton = foundInLeft
-            } else {
-                let foundInRight: KSButton? = rightButtonList.filter { $0.identifier == newIdentifier }.first as KSButton?
-                if foundInRight != nil {
-                    currentButton = foundInRight
+            if let newIdentifier = newIdentifier {
+                let foundInLeft: KSButton? = leftButtonList.filter { $0.identifier == newIdentifier }.first as KSButton?
+                if foundInLeft != nil {
+                    currentButton = foundInLeft
+                } else {
+                    let foundInRight: KSButton? = rightButtonList.filter { $0.identifier == newIdentifier }.first as KSButton?
+                    if foundInRight != nil {
+                        currentButton = foundInRight
+                    }
                 }
+            } else {
+                currentButton = nil
             }
         }
     }
@@ -169,13 +173,14 @@ extension KSTabView {
 
         func setForButton(button: KSButton?) {
             if let button = button {
+                self.hidden = false
                 let oldLocation = self.frame.origin
                 self.frame.origin.x = button.frame.origin.x
                 
                 let oldSize = self.frame.size
                 self.frame.size.width = button.frame.width
             } else {
-                self.frame.size.width = 0
+                self.hidden = true
             }
         }
     }

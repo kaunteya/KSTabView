@@ -23,7 +23,7 @@ class ViewController: NSViewController {
     }
     
     @IBAction func setSelected(sender: NSButton) {
-        tabView.selected = "age"
+        tabView.selected = nil
     }
 
     @IBAction func rightClean(sender: AnyObject) {
