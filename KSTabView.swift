@@ -47,7 +47,7 @@ class KSTabView: NSControl {
         NSRectFillUsingOperation(dirtyRect, NSCompositingOperation.CompositeSourceOver)
     }
 
-    func removeLeftButtons() {
+    func removeLeftButtons() -> KSTabView {
         for aButton in leftButtonList {
             aButton.removeFromSuperview()
             if aButton === currentButton {
@@ -55,10 +55,10 @@ class KSTabView: NSControl {
             }
         }
         leftButtonList.removeAll(keepCapacity: false)
-        
+        return self
     }
 
-    func removeRightButtons() {
+    func removeRightButtons() -> KSTabView {
         for aButton in rightButtonList {
             aButton.removeFromSuperview()
             if aButton === currentButton {
@@ -66,14 +66,17 @@ class KSTabView: NSControl {
             }
         }
         rightButtonList.removeAll(keepCapacity: false)
+        return self
     }
 
-    func pushButtonLeft(title: String, identifier: String) {
+    func pushButtonLeft(title: String, identifier: String) -> KSTabView {
         _pushButton(title, identifier: identifier, align: .Left)
+        return self
     }
     
-    func pushButtonRight(title: String, identifier: String) {
+    func pushButtonRight(title: String, identifier: String) -> KSTabView {
         _pushButton(title, identifier: identifier, align: .Right)
+        return self
     }
     
     func _pushButton(title: String, identifier: String?, align: NSLayoutAttribute) {

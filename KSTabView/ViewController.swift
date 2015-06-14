@@ -22,13 +22,13 @@ class ViewController: NSViewController {
         tabView.pushButtonLeft("Jump", identifier: "jump")
         tabView.selected = "jump"
     }
+
     @IBAction func addRight(sender: AnyObject) {
         tabView.removeRightButtons()
-        tabView.pushButtonRight("Name", identifier: "name")
-        tabView.pushButtonRight("Age", identifier: "age")
-        tabView.pushButtonRight("Gender", identifier: "gender")
-        tabView.pushButtonRight("Location", identifier: "location")
-        tabView.selected = "gender"
+            .pushButtonRight("Name", identifier: "name")
+            .pushButtonRight("Age", identifier: "age")
+            .pushButtonRight("Gender", identifier: "gender")
+            .pushButtonRight("Location", identifier: "location").selected = "gender"
     }
     @IBAction func leftClean(sender: AnyObject) {
         tabView.removeLeftButtons()
