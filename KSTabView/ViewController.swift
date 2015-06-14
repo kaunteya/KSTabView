@@ -12,6 +12,10 @@ class ViewController: NSViewController {
 
     @IBOutlet weak var tabView: KSTabView!
 
+    @IBAction func selectionTypeChanged(sender: NSSegmentedControl) {
+        tabView.selectionType = KSTabView.SelectionType(rawValue: sender.selectedSegment)!
+    }
+    
     @IBAction func actionOccured(sender: NSString?) {
         println("\(sender) pressed")
     }
@@ -20,7 +24,11 @@ class ViewController: NSViewController {
         tabView.removeLeftButtons()
         tabView.pushButtonLeft("Reload", identifier: "reload")
         tabView.pushButtonLeft("Jump", identifier: "jump")
-        tabView.selected = "jump"
+        tabView.selectedButtons = ["jump"]
+    }
+    
+    @IBAction func leftClean(sender: AnyObject) {
+        tabView.removeLeftButtons()
     }
 
     @IBAction func addRight(sender: AnyObject) {
@@ -28,21 +36,21 @@ class ViewController: NSViewController {
             .pushButtonRight("Name", identifier: "name")
             .pushButtonRight("Age", identifier: "age")
             .pushButtonRight("Gender", identifier: "gender")
-            .pushButtonRight("Location", identifier: "location").selected = "gender"
+            .pushButtonRight("Location", identifier: "location").selectedButtons = ["gender"]
     }
-    @IBAction func leftClean(sender: AnyObject) {
-        tabView.removeLeftButtons()
-    }
-    
     @IBAction func rightClean(sender: AnyObject) {
         tabView.removeRightButtons()
     }
 
-    @IBAction func setSelected(sender: NSButton) {
-        tabView.selected = "age"
+    @IBAction func selectMultiple(sender: NSButton) {
+        tabView.selectedButtons = ["age", "location", "jump"]
     }
-    
+
+    @IBAction func selectOne(sender: NSButton) {
+        tabView.selectedButtons = ["age", ]
+    }
+
     @IBAction func clearSelection(sender: NSButton) {
-        tabView.selected = nil
+        tabView.selectedButtons = []
     }
 }

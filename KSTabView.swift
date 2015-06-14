@@ -11,8 +11,8 @@ import Cocoa
 
 class KSTabView: NSControl {
 
-    enum SelectionType {
-        case None, One, Any
+    enum SelectionType: Int {
+        case None =  0, One, Any
     }
 
     @IBInspectable var backgroundColor: NSColor! = NSColor(calibratedRed: 5 / 255, green: 105 / 255, blue: 92 / 255, alpha: 1)
@@ -25,7 +25,11 @@ class KSTabView: NSControl {
     
     var leftButtonList = [KSButton]()
     var rightButtonList = [KSButton]()
-    var selectionType: SelectionType = .One
+    var selectionType: SelectionType = .One {
+        didSet {
+            self.selectedButtons = []
+        }
+    }
 
     var currentButton: KSButton? {
         didSet {
@@ -45,12 +49,32 @@ class KSTabView: NSControl {
         }
     }
 
-    var selected: String? {
+    var selectedButtons: [String] {
         get {
-            return currentButton?.identifier
+            return (leftButtonList + rightButtonList).filter { $0.selected }.map { $0.identifier }.filter{ $0 != nil}.map {$0!}
         }
-        set(newIdentifier) {
-            currentButton = (leftButtonList + rightButtonList).filter { $0.identifier == newIdentifier }.first as KSButton?
+        
+        set(newIdentifierList) {
+        
+            switch selectionType {
+            case .None:()
+                return
+            case .One:
+                if newIdentifierList.count > 1 {
+                    fatalError("Only one button can be selected")
+                }
+            case .Any:()
+                
+            default:()
+            }
+            
+            for button in (leftButtonList + rightButtonList) {
+                if let validIdentifier = button.identifier where contains(newIdentifierList, validIdentifier) {
+                    button.selected = true
+                } else {
+                    button.selected = false
+                }
+            }
         }
     }
 
