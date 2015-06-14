@@ -185,12 +185,11 @@ extension KSTabView {
         }
         
         required init?(coder: NSCoder) {
-            parentTabView =  NSView(frame: NSZeroRect) as! KSTabView
-            super.init(coder: coder)
-            
-            self.attributedTitle = attributedString(parentTabView.titleColor)
-            
-            (self.cell() as! NSButtonCell).bordered = false
+            fatalError("Init from IB not supported")
+//            parentTabView =  NSView(frame: NSZeroRect) as! KSTabView
+//            super.init(coder: coder)
+//            self.attributedTitle = attributedString(parentTabView.titleColor)
+//            (self.cell() as! NSButtonCell).bordered = false
         }
         
         override func mouseEntered(theEvent: NSEvent) {
