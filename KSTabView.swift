@@ -10,6 +10,11 @@ import Foundation
 import Cocoa
 
 class KSTabView: NSControl {
+
+    enum SelectionType {
+        case None, One, Any
+    }
+
     @IBInspectable var backgroundColor: NSColor! = NSColor(calibratedRed: 5 / 255, green: 105 / 255, blue: 92 / 255, alpha: 1)
     @IBInspectable var hoverColor: NSColor! = NSColor(calibratedRed: 5 / 255, green: 105 / 255, blue: 92 / 255, alpha: 1).colorWithAlphaComponent(0.8)
     @IBInspectable var titleColor: NSColor! = NSColor(calibratedRed: 137/255, green: 185/255, blue: 175/255, alpha: 1.0)
@@ -20,11 +25,23 @@ class KSTabView: NSControl {
     
     var leftButtonList = [KSButton]()
     var rightButtonList = [KSButton]()
+    var selectionType: SelectionType = .One
+
     var currentButton: KSButton? {
         didSet {
-            println("CurrentButton set")
-            oldValue?.setSelected(false)
-            currentButton?.setSelected(true)
+            
+            switch selectionType {
+            case .None:()
+
+            case .One:
+                oldValue?.selected = false
+                currentButton?.selected = true
+
+            case .Any:()
+            currentButton?.toggleSelection()
+                
+            default:()
+            }
         }
     }
 
@@ -136,6 +153,18 @@ extension KSTabView {
         var trackingArea: NSTrackingArea!
         let parentTabView: KSTabView
         var underline = NSBox(frame: NSZeroRect)
+        var selected = false {
+            didSet {
+                let color = self.selected ? parentTabView.selectionColor : parentTabView.titleColor
+                self.attributedTitle = attributedString(color)
+                underline.hidden = !self.selected
+                
+            }
+        }
+        
+        func toggleSelection() {
+            selected = !selected
+        }
 
         override func updateTrackingAreas() {
             super.updateTrackingAreas()
@@ -144,12 +173,6 @@ extension KSTabView {
             }
             trackingArea = NSTrackingArea(rect: self.bounds, options: NSTrackingAreaOptions.MouseEnteredAndExited | NSTrackingAreaOptions.ActiveAlways, owner: self, userInfo: nil)
             self.addTrackingArea(trackingArea)
-        }
-        
-        func setSelected(isIt: Bool) {
-            let color = isIt ? parentTabView.selectionColor : parentTabView.titleColor
-            self.attributedTitle = attributedString(color)
-            underline.hidden = !isIt
         }
         
         init(_ title: String, _ identifier: String?, tabView: KSTabView) {
