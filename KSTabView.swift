@@ -9,7 +9,7 @@
 import Foundation
 import Cocoa
 
-class KSTabView: NSControl {
+public class KSTabView: NSControl {
 
     enum SelectionType: Int {
         case None =  0, One, Any
@@ -60,6 +60,7 @@ class KSTabView: NSControl {
             case .One:
                 if newIdentifierList.count > 1 {
                     println("Only one button can be selected")
+                    return
                 }
             default:()
             }
