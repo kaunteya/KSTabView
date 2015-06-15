@@ -26,6 +26,7 @@ public class KSTabView: NSControl {
     
     var leftButtonList = [KSButton]()
     var rightButtonList = [KSButton]()
+    
     var selectionType: SelectionType = .One {
         didSet {
             self.selectedButtons = []
@@ -75,7 +76,6 @@ public class KSTabView: NSControl {
             }
         }
     }
-
     
     required public init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -180,7 +180,6 @@ extension KSTabView {
                 let color = self.selected ? parentTabView.selectionColor : parentTabView.labelColor
                 self.attributedTitle = attributedString(color)
                 underline.hidden = !self.selected
-                
             }
         }
         
