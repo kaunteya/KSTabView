@@ -16,8 +16,13 @@ public class KSTabView: NSControl {
     }
 
     @IBInspectable var backgroundColor: NSColor! = NSColor(calibratedRed: 5 / 255, green: 105 / 255, blue: 92 / 255, alpha: 1)
-    @IBInspectable var hoverColor: NSColor! = NSColor(calibratedRed: 5 / 255, green: 105 / 255, blue: 92 / 255, alpha: 1).colorWithAlphaComponent(0.8)
-    @IBInspectable var titleColor: NSColor! = NSColor(calibratedRed: 137/255, green: 185/255, blue: 175/255, alpha: 1.0)
+    var hoverColor: NSColor {
+        get {
+            return self.backgroundColor.colorWithAlphaComponent(0.8)
+        }
+    }
+
+    @IBInspectable var labelColor: NSColor! = NSColor(calibratedRed: 137/255, green: 185/255, blue: 175/255, alpha: 1.0)
     @IBInspectable var selectionColor: NSColor! = NSColor.whiteColor()
     
     @IBInspectable var fontSize: CGFloat = 16
@@ -176,7 +181,7 @@ extension KSTabView {
         var underline = NSBox(frame: NSZeroRect)
         var selected = false {
             didSet {
-                let color = self.selected ? parentTabView.selectionColor : parentTabView.titleColor
+                let color = self.selected ? parentTabView.selectionColor : parentTabView.labelColor
                 self.attributedTitle = attributedString(color)
                 underline.hidden = !self.selected
                 
@@ -201,7 +206,7 @@ extension KSTabView {
             super.init(frame: NSZeroRect)
             self.title = title
             self.identifier = identifier
-            self.attributedTitle = attributedString(parentTabView.titleColor)
+            self.attributedTitle = attributedString(parentTabView.labelColor)
             (self.cell() as! NSButtonCell).bordered = false
             self.sizeToFit()
             self.addSubview(underline)
