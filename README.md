@@ -58,3 +58,4 @@ tabView.removeRightButtons()
 ##Todo
 - Allow add buttons from Interface Builder
 - Documentation
+- Support for buttons with Image
