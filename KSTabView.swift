@@ -49,7 +49,7 @@ public class KSTabView: NSControl {
         }
     }
 
-    var selectedButtons: [String] {
+    public var selectedButtons: [String] {
         get {
             return (leftButtonList + rightButtonList).filter { $0.selected }.map { $0.identifier }.filter{ $0 != nil}.map {$0!}
         }
@@ -76,16 +76,16 @@ public class KSTabView: NSControl {
     }
 
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    override func drawRect(dirtyRect: NSRect) {
+    override public func drawRect(dirtyRect: NSRect) {
         backgroundColor.setFill()
         NSRectFillUsingOperation(dirtyRect, NSCompositingOperation.CompositeSourceOver)
     }
 
-    func removeLeftButtons() -> KSTabView {
+    public func removeLeftButtons() -> KSTabView {
         for aButton in leftButtonList {
             aButton.removeFromSuperview()
             if aButton === currentButton {
@@ -96,7 +96,7 @@ public class KSTabView: NSControl {
         return self
     }
 
-    func removeRightButtons() -> KSTabView {
+    public func removeRightButtons() -> KSTabView {
         for aButton in rightButtonList {
             aButton.removeFromSuperview()
             if aButton === currentButton {
@@ -107,12 +107,12 @@ public class KSTabView: NSControl {
         return self
     }
 
-    func pushButtonLeft(title: String, identifier: String) -> KSTabView {
+    public func pushButtonLeft(title: String, identifier: String) -> KSTabView {
         _pushButton(title, identifier: identifier, align: .Left)
         return self
     }
     
-    func pushButtonRight(title: String, identifier: String) -> KSTabView {
+    public func pushButtonRight(title: String, identifier: String) -> KSTabView {
         _pushButton(title, identifier: identifier, align: .Right)
         return self
     }
