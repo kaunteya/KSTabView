@@ -16,11 +16,7 @@ public class KSTabView: NSControl {
     }
 
     @IBInspectable var backgroundColor: NSColor! = NSColor(calibratedRed: 5 / 255, green: 105 / 255, blue: 92 / 255, alpha: 1)
-    var hoverColor: NSColor {
-        get {
-            return self.backgroundColor.colorWithAlphaComponent(0.8)
-        }
-    }
+    @IBInspectable var hoverColor: NSColor! = NSColor(calibratedRed: 5 / 255, green: 105 / 255, blue: 92 / 255, alpha: 1).colorWithAlphaComponent(0.8)
 
     @IBInspectable var labelColor: NSColor! = NSColor(calibratedRed: 137/255, green: 185/255, blue: 175/255, alpha: 1.0)
     @IBInspectable var selectionColor: NSColor! = NSColor.whiteColor()
