@@ -55,3 +55,6 @@ tabView.removeRightButtons()
     .pushButtonRight("Delete", identifier: "delete")
     .pushButtonRight("New", identifier: "new").selectedButtons = ["modify"]
 ```
+##Todo
+- Allow add buttons from Interface Builder
+- Documentation
