@@ -33,21 +33,21 @@ class ViewController: NSViewController {
 
     @IBAction func addRight(sender: AnyObject) {
         tabView.removeRightButtons()
-            .pushButtonRight("Name", identifier: "name")
-            .pushButtonRight("Age", identifier: "age")
-            .pushButtonRight("Gender", identifier: "gender")
-            .pushButtonRight("Location", identifier: "location").selectedButtons = ["gender"]
+            .pushButtonRight("Help", identifier: "help")
+            .pushButtonRight("Modify", identifier: "modify")
+            .pushButtonRight("Delete", identifier: "delete")
+            .pushButtonRight("New", identifier: "new").selectedButtons = ["modify"]
     }
     @IBAction func rightClean(sender: AnyObject) {
         tabView.removeRightButtons()
     }
 
     @IBAction func selectMultiple(sender: NSButton) {
-        tabView.selectedButtons = ["age", "location", "jump"]
+        tabView.selectedButtons = ["delete", "help", "jump"]
     }
 
     @IBAction func selectOne(sender: NSButton) {
-        tabView.selectedButtons = ["age", ]
+        tabView.selectedButtons = ["delete", ]
     }
 
     @IBAction func clearSelection(sender: NSButton) {
