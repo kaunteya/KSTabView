@@ -13,6 +13,7 @@
 		E3D280FF1B2CA6D600F15CCC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3D280FD1B2CA6D600F15CCC /* Main.storyboard */; };
 		E3D2810B1B2CA6D600F15CCC /* KSTabViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D2810A1B2CA6D600F15CCC /* KSTabViewTests.swift */; };
 		E3D281151B2CA71600F15CCC /* KSTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D281141B2CA71600F15CCC /* KSTabView.swift */; };
+		E3DF3F2F1B2EE7F60078AEE5 /* demo.png in Resources */ = {isa = PBXBuildFile; fileRef = E3DF3F2E1B2EE7F60078AEE5 /* demo.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		E3D281091B2CA6D600F15CCC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E3D2810A1B2CA6D600F15CCC /* KSTabViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KSTabViewTests.swift; sourceTree = "<group>"; };
 		E3D281141B2CA71600F15CCC /* KSTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KSTabView.swift; sourceTree = SOURCE_ROOT; };
+		E3DF3F2E1B2EE7F60078AEE5 /* demo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = demo.png; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 				E3D280F71B2CA6D600F15CCC /* AppDelegate.swift */,
 				E3D280F91B2CA6D600F15CCC /* ViewController.swift */,
 				E3D281141B2CA71600F15CCC /* KSTabView.swift */,
+				E3DF3F2E1B2EE7F60078AEE5 /* demo.png */,
 				E3D280FB1B2CA6D600F15CCC /* Images.xcassets */,
 				E3D280F51B2CA6D600F15CCC /* Supporting Files */,
 			);
@@ -194,6 +197,7 @@
 			files = (
 				E3D280FC1B2CA6D600F15CCC /* Images.xcassets in Resources */,
 				E3D280FF1B2CA6D600F15CCC /* Main.storyboard in Resources */,
+				E3DF3F2F1B2EE7F60078AEE5 /* demo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,6 +408,7 @@
 				E3D281101B2CA6D600F15CCC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E3D281111B2CA6D600F15CCC /* Build configuration list for PBXNativeTarget "KSTabViewTests" */ = {
 			isa = XCConfigurationList;
@@ -412,6 +417,7 @@
 				E3D281131B2CA6D600F15CCC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
