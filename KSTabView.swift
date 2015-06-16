@@ -10,14 +10,14 @@ import Foundation
 import Cocoa
 
 public class KSTabView: NSControl {
-
+    
     enum SelectionType: Int {
         case None =  0, One, Any
     }
-
+    
     @IBInspectable var backgroundColor: NSColor! = NSColor(calibratedRed: 5 / 255, green: 105 / 255, blue: 92 / 255, alpha: 1)
     @IBInspectable var hoverColor: NSColor! = NSColor(calibratedRed: 5 / 255, green: 105 / 255, blue: 92 / 255, alpha: 1).colorWithAlphaComponent(0.8)
-
+    
     @IBInspectable var labelColor: NSColor! = NSColor(calibratedRed: 137/255, green: 185/255, blue: 175/255, alpha: 1.0)
     @IBInspectable var selectionColor: NSColor! = NSColor.whiteColor()
     
@@ -32,14 +32,14 @@ public class KSTabView: NSControl {
             self.selectedButtons = []
         }
     }
-
+    
     public var selectedButtons: [String] {
         get {
             return (leftButtonList + rightButtonList).filter { $0.selected }.map { $0.identifier }.filter{ $0 != nil}.map {$0!}
         }
         
         set(newIdentifierList) {
-        
+            
             switch selectionType {
             case .One:
                 if newIdentifierList.count > 1 {
@@ -67,7 +67,7 @@ public class KSTabView: NSControl {
         backgroundColor.setFill()
         NSRectFillUsingOperation(dirtyRect, NSCompositingOperation.CompositeSourceOver)
     }
-
+    
     public func removeLeftButtons() -> KSTabView {
         for aButton in leftButtonList {
             aButton.removeFromSuperview()
@@ -75,7 +75,7 @@ public class KSTabView: NSControl {
         leftButtonList.removeAll(keepCapacity: false)
         return self
     }
-
+    
     public func removeRightButtons() -> KSTabView {
         for aButton in rightButtonList {
             aButton.removeFromSuperview()
@@ -83,7 +83,7 @@ public class KSTabView: NSControl {
         rightButtonList.removeAll(keepCapacity: false)
         return self
     }
-
+    
     public func pushButtonLeft(title: String, identifier: String) -> KSTabView {
         _pushButton(title, identifier: identifier, align: .Left)
         return self
@@ -138,7 +138,7 @@ public class KSTabView: NSControl {
                 views: ["button" : button])
         )
     }
-
+    
     func buttonPressed(sender: KSButton) {
         switch selectionType {
         case .One:
@@ -147,22 +147,25 @@ public class KSTabView: NSControl {
             self.selectedButtons.append(sender.identifier!)
         default:()
         }
-
+        
         NSApplication.sharedApplication().sendAction(self.action, to: self.target, from: sender.identifier as NSString?)
     }
 }
 
 //MARK: KSButton
 extension KSTabView {
-    class KSButton: NSButton {
+    class KSButton: NSControl {
         var trackingArea: NSTrackingArea!
-        let parentTabView: KSTabView
-        var underline: NSBox!
-        let selectionLineHeight = CGFloat(3)
+        private let parentTabView: KSTabView
+        
+        private var label: NSTextField?
+        private var image: NSImage?
+        private var underline: NSBox!
+        private let selectionLineHeight = CGFloat(3)
         var selected = false {
             didSet {
                 let color = self.selected ? parentTabView.selectionColor : parentTabView.labelColor
-                self.attributedTitle = attributedString(color)
+                //                self.attributedTitle = attributedString(color)
                 underline.hidden = !self.selected
             }
         }
@@ -170,7 +173,7 @@ extension KSTabView {
         func toggleSelection() {
             selected = !selected
         }
-
+        
         override func updateTrackingAreas() {
             super.updateTrackingAreas()
             if trackingArea != nil {
@@ -183,44 +186,55 @@ extension KSTabView {
         init(_ title: String, _ identifier: String?, tabView: KSTabView) {
             parentTabView = tabView
             super.init(frame: NSZeroRect)
-            self.title = title
+            self.label = NSTextField()
+            self.label?.editable = false
+            self.label?.selectable = false
+            self.label?.stringValue = title
+            self.label?.textColor = NSColor.whiteColor()
+            self.label?.sizeToFit()
+            self.label?.bordered = false
+            self.label?.backgroundColor = NSColor.clearColor()
+            
+            self.addSubview(label!)
+            
+            
+            self.frame.size = NSMakeSize(label!.attributedStringValue.size.width, NSHeight(parentTabView.frame))
+            
             self.identifier = identifier
-            self.attributedTitle = attributedString(parentTabView.labelColor)
-            (self.cell() as! NSButtonCell).bordered = false
-            self.sizeToFit()
+            
+            
+            
+            
             underline = NSBox(frame: NSMakeRect(0, parentTabView.frame.height - selectionLineHeight, self.frame.size.width + parentTabView.buttonPadding, selectionLineHeight))
-
+            
             underline.boxType = NSBoxType.Custom
             underline.borderWidth = 0
             underline.fillColor = NSColor.whiteColor()
             underline.hidden = true
             self.addSubview(underline)
         }
-
-        func attributedString(color: NSColor) -> NSAttributedString {
-            let font = NSFont.labelFontOfSize(parentTabView.fontSize)
-            var colorTitle = NSMutableAttributedString(attributedString: self.attributedTitle)
-            
-            var titleRange = NSMakeRange(0, colorTitle.length)
-            colorTitle.addAttribute(NSForegroundColorAttributeName, value: color, range: titleRange)
-            colorTitle.addAttribute(NSFontAttributeName, value: font, range: titleRange)
-            return colorTitle
-        }
+        
         
         required init?(coder: NSCoder) {
             fatalError("Init from IB not supported")
-//            parentTabView =  NSView(frame: NSZeroRect) as! KSTabView
-//            super.init(coder: coder)
-//            self.attributedTitle = attributedString(parentTabView.titleColor)
-//            (self.cell() as! NSButtonCell).bordered = false
+            //            parentTabView =  NSView(frame: NSZeroRect) as! KSTabView
+            //            super.init(coder: coder)
+            //            self.attributedTitle = attributedString(parentTabView.titleColor)
+            //            (self.cell() as! NSButtonCell).bordered = false
         }
         
         override func mouseEntered(theEvent: NSEvent) {
-            (self.cell() as! NSButtonCell).backgroundColor = parentTabView.hoverColor
+            //            .backgroundColor = parentTabView.hoverColor
         }
         
         override func mouseExited(theEvent: NSEvent) {
-            (self.cell() as! NSButtonCell).backgroundColor = parentTabView.backgroundColor
+            //            .backgroundColor = parentTabView.backgroundColor
+        }
+        
+        override func mouseUp(theEvent: NSEvent) {
+            parentTabView.buttonPressed(self)
+            NSApplication.sharedApplication().sendAction(self.action, to: self.target, from: self)
+
         }
     }
 }
