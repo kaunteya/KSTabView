@@ -16,7 +16,7 @@ public class KSTabView: NSControl {
     }
     
     @IBInspectable var backgroundColor: NSColor! = NSColor(calibratedRed: 5 / 255, green: 105 / 255, blue: 92 / 255, alpha: 1)
-    @IBInspectable var hoverColor: NSColor! = NSColor(calibratedRed: 5 / 255, green: 105 / 255, blue: 92 / 255, alpha: 1).colorWithAlphaComponent(0.8)
+    @IBInspectable var hoverColor: NSColor! = NSColor(calibratedRed: 12 / 255, green: 81 / 255, blue: 68 / 255, alpha: 1)
     
     @IBInspectable var labelColor: NSColor! = NSColor(calibratedRed: 137/255, green: 185/255, blue: 175/255, alpha: 1.0)
     @IBInspectable var selectionColor: NSColor! = NSColor.whiteColor()
@@ -157,15 +157,18 @@ extension KSTabView {
     class KSButton: NSControl {
         var trackingArea: NSTrackingArea!
         private let parentTabView: KSTabView
-        
-        private var label: NSTextField?
+        private var mouseInside = false {
+            didSet {
+                self.needsDisplay = true
+            }
+        }
+        private var label: Label?
         private var image: NSImage?
-        private var underline: NSBox!
+        private var underline: UnderLine!
         private let selectionLineHeight = CGFloat(3)
         var selected = false {
             didSet {
-                let color = self.selected ? parentTabView.selectionColor : parentTabView.labelColor
-                //                self.attributedTitle = attributedString(color)
+                label?.textColor = self.selected ? parentTabView.selectionColor : parentTabView.labelColor
                 underline.hidden = !self.selected
             }
         }
@@ -186,56 +189,72 @@ extension KSTabView {
         init(_ title: String, _ identifier: String?, tabView: KSTabView) {
             parentTabView = tabView
             super.init(frame: NSZeroRect)
+
+            self.identifier = identifier
             
-            self.label = NSTextField()
-            self.label?.editable = false
-            self.label?.selectable = false
-            self.label?.stringValue = title
-            self.label?.textColor = NSColor.whiteColor()
-            self.label?.bordered = false
-            self.label?.backgroundColor = NSColor.clearColor()
-            self.label?.sizeToFit()
-            self.label?.frame.origin = NSMakePoint(parentTabView.buttonPadding / 2, selectionLineHeight + 2)
+            label = Label(title: title, color: parentTabView.labelColor)
+            label?.frame.origin = NSMakePoint(parentTabView.buttonPadding / 2, selectionLineHeight + 2)
             self.addSubview(label!)
             
             
             self.frame.size = NSMakeSize(label!.attributedStringValue.size.width + parentTabView.buttonPadding, NSHeight(parentTabView.frame))
             
-            self.identifier = identifier
-            
-            
-            
-            
-            underline = NSBox(frame: NSMakeRect(selectionLineHeight, 0, self.frame.size.width - (selectionLineHeight * 2) + parentTabView.buttonPadding, selectionLineHeight))
-            
-            underline.boxType = NSBoxType.Custom
-            underline.borderWidth = 0
-            underline.fillColor = NSColor.whiteColor()
-            underline.hidden = true
+            underline = UnderLine()
+            underline.frame.origin = NSMakePoint(selectionLineHeight, 0)
+            underline.frame.size = NSMakeSize(self.frame.size.width - (selectionLineHeight * 2) + parentTabView.buttonPadding, selectionLineHeight)
             self.addSubview(underline)
         }
         
         
-        required init?(coder: NSCoder) {
-            fatalError("Init from IB not supported")
-            //            parentTabView =  NSView(frame: NSZeroRect) as! KSTabView
-            //            super.init(coder: coder)
-            //            self.attributedTitle = attributedString(parentTabView.titleColor)
-            //            (self.cell() as! NSButtonCell).bordered = false
-        }
+        required init?(coder: NSCoder) { fatalError("Init from IB not supported") }
         
-        override func mouseEntered(theEvent: NSEvent) {
-            //            .backgroundColor = parentTabView.hoverColor
-        }
+        override func mouseEntered(theEvent: NSEvent) { mouseInside = true }
         
-        override func mouseExited(theEvent: NSEvent) {
-            //            .backgroundColor = parentTabView.backgroundColor
-        }
+        override func mouseExited(theEvent: NSEvent) { mouseInside = false }
         
         override func mouseUp(theEvent: NSEvent) {
-            parentTabView.buttonPressed(self)
             NSApplication.sharedApplication().sendAction(self.action, to: self.target, from: self)
 
         }
+        
+        override func drawRect(dirtyRect: NSRect) {
+            if mouseInside {
+                parentTabView.hoverColor.setFill()
+            } else {
+                parentTabView.backgroundColor.setFill()
+            }
+            NSRectFillUsingOperation(dirtyRect, NSCompositingOperation.CompositeSourceOver)
+        }
+    }
+}
+
+private class Label: NSTextField {
+    init(title: String, color: NSColor) {
+        super.init(frame: NSZeroRect)
+        self.editable = false
+        self.selectable = false
+        self.stringValue = title
+        self.textColor = color
+        self.bordered = false
+        self.backgroundColor = NSColor.clearColor()
+        self.sizeToFit()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+private class UnderLine: NSBox {
+    init() {
+        super.init(frame: NSZeroRect)
+        self.boxType = NSBoxType.Custom
+        self.borderWidth = 0
+        self.fillColor = NSColor.whiteColor()
+        self.hidden = true
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

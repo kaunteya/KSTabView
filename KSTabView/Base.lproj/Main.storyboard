@@ -669,13 +669,13 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="KSTabView" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="643" height="248"/>
+                        <rect key="frame" x="0.0" y="0.0" width="643" height="263"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="2gq-1a-xRX" customClass="KSTabView" customModule="KSTabView" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="223" width="643" height="25"/>
+                                <rect key="frame" x="0.0" y="223" width="643" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="fgJ-g9-tpj"/>
+                                    <constraint firstAttribute="height" constant="40" id="fgJ-g9-tpj"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
@@ -683,6 +683,9 @@
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="buttonPadding">
                                         <real key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="hoverColor">
+                                        <color key="value" red="0.047058823529411764" green="0.31764705882352939" blue="0.26666666666666666" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -793,7 +796,7 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dsC-hB-HD2">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dsC-hB-HD2">
                                 <rect key="frame" x="18" y="194" width="119" height="21"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Selection Type" id="uiX-bf-ZRY">
                                     <font key="font" metaFont="system" size="17"/>
@@ -801,8 +804,8 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TqL-z7-Dhk">
-                                <rect key="frame" x="18" y="153" width="183" height="21"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TqL-z7-Dhk">
+                                <rect key="frame" x="18" y="149" width="183" height="21"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Add / Remove Buttons" id="zdX-YK-6FC">
                                     <font key="font" metaFont="system" size="17"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
