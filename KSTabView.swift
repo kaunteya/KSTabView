@@ -157,7 +157,8 @@ extension KSTabView {
     class KSButton: NSButton {
         var trackingArea: NSTrackingArea!
         let parentTabView: KSTabView
-        var underline = NSBox(frame: NSZeroRect)
+        var underline: NSBox!
+        let selectionLineHeight = CGFloat(3)
         var selected = false {
             didSet {
                 let color = self.selected ? parentTabView.selectionColor : parentTabView.labelColor
@@ -187,18 +188,13 @@ extension KSTabView {
             self.attributedTitle = attributedString(parentTabView.labelColor)
             (self.cell() as! NSButtonCell).bordered = false
             self.sizeToFit()
-            self.addSubview(underline)
-            
+            underline = NSBox(frame: NSMakeRect(0, parentTabView.frame.height - selectionLineHeight, self.frame.size.width + parentTabView.buttonPadding, selectionLineHeight))
+
             underline.boxType = NSBoxType.Custom
             underline.borderWidth = 0
             underline.fillColor = NSColor.whiteColor()
             underline.hidden = true
-            underline.translatesAutoresizingMaskIntoConstraints = false
-            let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:[view(3)]|", options: nil, metrics: nil, views: ["view": underline])
-            self.addConstraints(verticalConstraints)
-            
-            let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:[view(button)]", options: nil, metrics: nil, views: ["view": underline, "button": self])
-            self.addConstraints(horizontalConstraints)
+            self.addSubview(underline)
         }
 
         func attributedString(color: NSColor) -> NSAttributedString {
