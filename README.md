@@ -3,6 +3,11 @@
 `KSTabView` is simple and lightweight TabView for Mac OSX implemented in Swift
 ![](./demo.png)
 
+## Features
+- Complete autolayout support
+- All configurations are IBInspecatable
+- Simple and lightweight
+
 ## Requirements
 - Mac OS X 10.10+
 - Xcode 6.3
