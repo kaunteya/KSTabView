@@ -186,6 +186,7 @@ extension KSTabView {
         init(_ title: String, _ identifier: String?, tabView: KSTabView) {
             parentTabView = tabView
             super.init(frame: NSZeroRect)
+            
             self.label = NSTextField()
             self.label?.editable = false
             self.label?.selectable = false
@@ -205,7 +206,7 @@ extension KSTabView {
             
             
             
-            underline = NSBox(frame: NSMakeRect(0, parentTabView.frame.height - selectionLineHeight, self.frame.size.width + parentTabView.buttonPadding, selectionLineHeight))
+            underline = NSBox(frame: NSMakeRect(0, 0, self.frame.size.width + parentTabView.buttonPadding, selectionLineHeight))
             
             underline.boxType = NSBoxType.Custom
             underline.borderWidth = 0
