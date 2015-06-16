@@ -127,7 +127,7 @@ public class KSTabView: NSControl {
             NSLayoutConstraint.constraintsWithVisualFormat(
                 formatString,
                 options: NSLayoutFormatOptions(0),
-                metrics: ["size": button.frame.size.width + buttonPadding],
+                metrics: ["size": button.frame.size.width],
                 views: viewsDictionary)
         )
         self.addConstraints(
@@ -192,21 +192,21 @@ extension KSTabView {
             self.label?.selectable = false
             self.label?.stringValue = title
             self.label?.textColor = NSColor.whiteColor()
-            self.label?.sizeToFit()
             self.label?.bordered = false
             self.label?.backgroundColor = NSColor.clearColor()
-            
+            self.label?.sizeToFit()
+            self.label?.frame.origin = NSMakePoint(parentTabView.buttonPadding / 2, selectionLineHeight + 2)
             self.addSubview(label!)
             
             
-            self.frame.size = NSMakeSize(label!.attributedStringValue.size.width, NSHeight(parentTabView.frame))
+            self.frame.size = NSMakeSize(label!.attributedStringValue.size.width + parentTabView.buttonPadding, NSHeight(parentTabView.frame))
             
             self.identifier = identifier
             
             
             
             
-            underline = NSBox(frame: NSMakeRect(0, 0, self.frame.size.width + parentTabView.buttonPadding, selectionLineHeight))
+            underline = NSBox(frame: NSMakeRect(selectionLineHeight, 0, self.frame.size.width - (selectionLineHeight * 2) + parentTabView.buttonPadding, selectionLineHeight))
             
             underline.boxType = NSBoxType.Custom
             underline.borderWidth = 0
