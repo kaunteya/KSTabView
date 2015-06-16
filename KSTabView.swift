@@ -33,24 +33,6 @@ public class KSTabView: NSControl {
         }
     }
 
-    var currentButton: KSButton? {
-        didSet {
-            
-            switch selectionType {
-            case .None:()
-
-            case .One:
-                oldValue?.selected = false
-                currentButton?.selected = true
-
-            case .Any:()
-            currentButton?.toggleSelection()
-                
-            default:()
-            }
-        }
-    }
-
     public var selectedButtons: [String] {
         get {
             return (leftButtonList + rightButtonList).filter { $0.selected }.map { $0.identifier }.filter{ $0 != nil}.map {$0!}
@@ -89,9 +71,6 @@ public class KSTabView: NSControl {
     public func removeLeftButtons() -> KSTabView {
         for aButton in leftButtonList {
             aButton.removeFromSuperview()
-            if aButton === currentButton {
-                currentButton = nil
-            }
         }
         leftButtonList.removeAll(keepCapacity: false)
         return self
@@ -100,9 +79,6 @@ public class KSTabView: NSControl {
     public func removeRightButtons() -> KSTabView {
         for aButton in rightButtonList {
             aButton.removeFromSuperview()
-            if aButton === currentButton {
-                currentButton = nil
-            }
         }
         rightButtonList.removeAll(keepCapacity: false)
         return self
@@ -164,7 +140,14 @@ public class KSTabView: NSControl {
     }
 
     func buttonPressed(sender: KSButton) {
-        currentButton = sender
+        switch selectionType {
+        case .One:
+            self.selectedButtons = [sender.identifier!]
+        case .Any:
+            self.selectedButtons.append(sender.identifier!)
+        default:()
+        }
+
         NSApplication.sharedApplication().sendAction(self.action, to: self.target, from: sender.identifier as NSString?)
     }
 }

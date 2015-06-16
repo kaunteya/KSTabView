@@ -36,7 +36,7 @@ class ViewController: NSViewController {
             .pushButtonRight("Help", identifier: "help")
             .pushButtonRight("Modify", identifier: "modify")
             .pushButtonRight("Delete", identifier: "delete")
-            .pushButtonRight("New", identifier: "new").selectedButtons = ["modify"]
+            .pushButtonRight("New", identifier: "new").selectedButtons = ["new"]
     }
     @IBAction func rightClean(sender: AnyObject) {
         tabView.removeRightButtons()
