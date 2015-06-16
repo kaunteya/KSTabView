@@ -94,7 +94,7 @@ public class KSTabView: NSControl {
         return self
     }
     
-    func _pushButton(title: String, identifier: String?, align: NSLayoutAttribute) {
+    private func _pushButton(title: String, identifier: String?, align: NSLayoutAttribute) {
         var button = KSButton(title, identifier, tabView: self)
         button.target = self
         button.action = "buttonPressed:"
