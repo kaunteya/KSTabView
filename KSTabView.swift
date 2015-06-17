@@ -156,7 +156,6 @@ public class KSTabView: NSControl {
 extension KSTabView {
     class KSButton: NSControl {
 
-        var trackingArea: NSTrackingArea!
         private let parentTabView: KSTabView
         private var mouseInside = false {
             didSet {
@@ -165,6 +164,7 @@ extension KSTabView {
         }
         private var underline: UnderLine!
         private let selectionLineHeight = CGFloat(3)
+        
         var button: NSButton!
 
         var selected = false {
@@ -179,7 +179,8 @@ extension KSTabView {
         func toggleSelection() {
             selected = !selected
         }
-        
+
+        var trackingArea: NSTrackingArea!
         override func updateTrackingAreas() {
             super.updateTrackingAreas()
             if trackingArea != nil {
@@ -192,23 +193,16 @@ extension KSTabView {
         init(_ title: String, _ identifier: String?, _ imagea: NSImage?, tabView: KSTabView) {
             parentTabView = tabView
             super.init(frame: NSZeroRect)
-
             self.identifier = identifier
-        
-
-//            button.attributedTitle = attributedString(parentTabView.labelColor)
-  
-            button = NSButton.makeButton(title, identifier, imagea, tabView: tabView)
-            
+          
+            button = NSButton.makeButton(title, imagea, tabView: tabView)
             self.addSubview(button)
-            
-            button.frame.origin = NSMakePoint(parentTabView.buttonPadding, 3)
+            button.frame.origin = NSMakePoint(parentTabView.buttonPadding, selectionLineHeight)
             
             let frameWidth = button.frame.width + (parentTabView.buttonPadding * 2)
             
             /// UnderLine
             underline = UnderLine(frame: NSMakeRect(selectionLineHeight, 0, frameWidth - (selectionLineHeight * 2), selectionLineHeight))
-
             self.addSubview(underline)
             
             /// Frame Size
@@ -236,6 +230,7 @@ extension KSTabView {
         }
     }
 }
+
 extension NSButton {
     private class ButtonCell: NSButtonCell {
         override func drawTitle(title: NSAttributedString, withFrame frame: NSRect, inView controlView: NSView) -> NSRect {
@@ -253,11 +248,10 @@ extension NSButton {
         self.attributedTitle = colorTitle
     }
 
-    class func makeButton(title: String, _ identifier: String?, _ imagea: NSImage?, tabView: KSTabView)  -> NSButton {
+    class func makeButton(title: String, _ imagea: NSImage?, tabView: KSTabView)  -> NSButton {
         var button = NSButton(frame: NSZeroRect)
         button.setCell(ButtonCell())
         button.title = title
-        button.identifier = identifier
         button.image = imagea
         button.image?.size = NSMakeSize(tabView.fontSize * 1.7, tabView.fontSize * 1.7)
         button.imagePosition = NSCellImagePosition.ImageLeft
