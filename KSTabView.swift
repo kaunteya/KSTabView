@@ -155,6 +155,7 @@ public class KSTabView: NSControl {
 //MARK: KSButton
 extension KSTabView {
     class KSButton: NSControl {
+
         var trackingArea: NSTrackingArea!
         private let parentTabView: KSTabView
         private var mouseInside = false {
@@ -205,7 +206,7 @@ extension KSTabView {
 
             self.identifier = identifier
         
-            batton.setCell(KSButtonCell())
+            batton.setCell(ButtonCell())
             batton.title = title
             batton.image = imagea
             batton.image?.size = NSMakeSize(parentTabView.fontSize * 1.5, parentTabView.fontSize * 1.5)
@@ -251,23 +252,24 @@ extension KSTabView {
         }
     }
 }
-
-private class KSButtonCell: NSButtonCell {
-    override func drawTitle(title: NSAttributedString, withFrame frame: NSRect, inView controlView: NSView) -> NSRect {
-        return super.drawTitle(self.attributedTitle, withFrame: frame, inView: controlView)
-    }
-}
-
-private class UnderLine: NSBox {
-    init() {
-        super.init(frame: NSZeroRect)
-        self.boxType = NSBoxType.Custom
-        self.borderWidth = 0
-        self.fillColor = NSColor.whiteColor()
-        self.hidden = true
+extension KSTabView.KSButton {
+    private class ButtonCell: NSButtonCell {
+        override func drawTitle(title: NSAttributedString, withFrame frame: NSRect, inView controlView: NSView) -> NSRect {
+            return super.drawTitle(self.attributedTitle, withFrame: frame, inView: controlView)
+        }
     }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    private class UnderLine: NSBox {
+        init() {
+            super.init(frame: NSZeroRect)
+            self.boxType = NSBoxType.Custom
+            self.borderWidth = 0
+            self.fillColor = NSColor.whiteColor()
+            self.hidden = true
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
     }
 }
