@@ -30,12 +30,12 @@ class ViewController: NSViewController {
         tabView.removeLeftButtons()
     }
 
-    @IBAction func addRight(sender: AnyObject) {
-        tabView.rightImagePosition = NSCellImagePosition.ImageAbove
+    @IBAction func addRight(sender: NSSegmentedControl) {
+        tabView.rightImagePosition = NSCellImagePosition(rawValue: UInt(sender.selectedSegment))!
         tabView.removeRightButtons()
             .pushButtonRight("facebook", title: "Facebook", image: NSImage(named: "facebook.png")!, alternateImage: NSImage(named: "altFacebook.png")!)
-            .pushButtonRight("google", image: NSImage(named: "google.png")!, alternateImage: nil)
-            .pushButtonRight("instagram", title: "Instagram")
+            .pushButtonRight("google", title: "Google", image: NSImage(named: "google.png")!, alternateImage: nil)
+        .pushButtonRight("instagram", title: "Instagram", image: NSImage(named: "instagram.png")!, alternateImage: nil)
             .pushButtonRight("twitter", title: "Twitter", image: NSImage(named: "twitter.png")!, alternateImage: nil).selectedButtons = ["instagram"]
         
     }
