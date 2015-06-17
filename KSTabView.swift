@@ -165,7 +165,11 @@ public class KSTabView: NSControl {
         case .One:
             self.selectedButtons = [sender.identifier!]
         case .Any:
-            self.selectedButtons.append(sender.identifier!)
+            if sender.selected {
+                self.selectedButtons = self.selectedButtons.filter{ $0 != sender.identifier }
+            } else {
+                self.selectedButtons.append(sender.identifier!)
+            }
         default:()
         }
         
@@ -190,6 +194,7 @@ extension KSTabView {
 
         var selected = false {
             didSet {
+                println("\(self.identifier) selected \(selected)")
                 let activeColor = self.selected ? parentTabView.selectionColor : parentTabView.labelColor
                 button.setAttributedString(parentTabView.fontSize, color: activeColor)
                 button.state = self.selected ? NSOnState : NSOffState
@@ -197,10 +202,6 @@ extension KSTabView {
             }
         }
         
-        func toggleSelection() {
-            selected = !selected
-        }
-
         var trackingArea: NSTrackingArea!
         override func updateTrackingAreas() {
             super.updateTrackingAreas()
