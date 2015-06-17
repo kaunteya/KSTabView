@@ -171,7 +171,7 @@ extension KSTabView {
             didSet {
                 let activeColor = self.selected ? parentTabView.selectionColor : parentTabView.labelColor
                 button.setAttributedString(parentTabView.fontSize, color: activeColor)
-
+                button.state = self.selected ? NSOnState : NSOffState
                 underline.hidden = !self.selected
             }
         }
@@ -254,6 +254,9 @@ extension NSButton {
         button.title = title
         button.image = imagea
         button.image?.size = NSMakeSize(tabView.fontSize * 1.7, tabView.fontSize * 1.7)
+        button.setButtonType(NSButtonType.ToggleButton)
+        button.alternateImage = NSImage(named: "altFacebook.png")
+        button.alternateImage?.size = NSMakeSize(tabView.fontSize * 1.7, tabView.fontSize * 1.7)
         button.imagePosition = NSCellImagePosition.ImageLeft
         button.bordered = false
         button.enabled = false
