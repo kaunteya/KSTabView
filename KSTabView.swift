@@ -194,7 +194,6 @@ extension KSTabView {
 
         var selected = false {
             didSet {
-                println("\(self.identifier) selected \(selected)")
                 let activeColor = self.selected ? parentTabView.selectionColor : parentTabView.labelColor
                 button.setAttributedString(parentTabView.fontSize, color: activeColor)
                 button.state = self.selected ? NSOnState : NSOffState
