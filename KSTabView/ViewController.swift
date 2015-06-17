@@ -23,7 +23,7 @@ class ViewController: NSViewController {
     @IBAction func addLeft(sender: AnyObject) {
         tabView.removeLeftButtons()
         tabView.pushButtonLeft("reload", title: "Reload")
-        tabView.pushButtonLeft("twitterL", title: "TweetBot", image: NSImage(named: "twitter.png")!, alternateImage: nil)
+        tabView.pushButtonLeft("find", title: "Find")
     }
     
     @IBAction func leftClean(sender: AnyObject) {
