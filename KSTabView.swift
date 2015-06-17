@@ -84,18 +84,39 @@ public class KSTabView: NSControl {
         return self
     }
     
-    public func pushButtonLeft(title: String, identifier: String, image: NSImage?) -> KSTabView {
-        _pushButton(title, identifier: identifier, image: image, align: .Left)
+    public func pushButtonLeft(identifier: String, title: String) -> KSTabView {
+        _pushButton(identifier, title: title, image: nil, alternateImage: nil, align: .Left)
         return self
     }
     
-    public func pushButtonRight(title: String, identifier: String, image: NSImage?) -> KSTabView {
-        _pushButton(title, identifier: identifier, image: image, align: .Right)
+    public func pushButtonLeft(identifier: String, image: NSImage, alternateImage: NSImage?) -> KSTabView {
+        _pushButton(identifier, title: nil, image: image, alternateImage: alternateImage, align: .Left)
+        return self
+    }
+    public func pushButtonLeft(identifier: String, title: String, image: NSImage, alternateImage: NSImage?) -> KSTabView {
+        _pushButton(identifier, title: title, image: image, alternateImage: alternateImage, align: .Left)
+        return self
+    }
+
+    public func pushButtonRight(identifier: String, title: String) -> KSTabView {
+        _pushButton(identifier, title: title, image: nil, alternateImage: nil, align: .Right)
         return self
     }
     
-    private func _pushButton(title: String, identifier: String?, image: NSImage?, align: NSLayoutAttribute) {
-        var button = KSButton(title, identifier, image, tabView: self)
+    public func pushButtonRight(identifier: String, image: NSImage, alternateImage: NSImage?) -> KSTabView {
+        _pushButton(identifier, title: nil, image: image, alternateImage: alternateImage, align: .Right)
+        return self
+    }
+
+    public func pushButtonRight(identifier: String, title: String, image: NSImage, alternateImage: NSImage?) -> KSTabView {
+        _pushButton(identifier, title: title, image: image, alternateImage: alternateImage, align: .Right)
+        return self
+    }
+    
+    private func _pushButton(identifier: String, title: String?, image: NSImage?, alternateImage: NSImage?, align: NSLayoutAttribute) {
+        
+        
+        var button = KSButton(identifier, title, image, alternateImage, tabView: self)
         button.target = self
         button.action = "buttonPressed:"
         self.addSubview(button)
@@ -190,12 +211,12 @@ extension KSTabView {
             self.addTrackingArea(trackingArea)
         }
         
-        init(_ title: String, _ identifier: String?, _ imagea: NSImage?, tabView: KSTabView) {
+        init(_ identifier: String?, _ title: String?, _ image: NSImage?,_ alternateImage:NSImage?, tabView: KSTabView) {
             parentTabView = tabView
             super.init(frame: NSZeroRect)
             self.identifier = identifier
           
-            button = NSButton.makeButton(title, imagea, tabView: tabView)
+            button = NSButton.makeButton(title, image, alternateImage, tabView: tabView)
             self.addSubview(button)
             button.frame.origin = NSMakePoint(parentTabView.buttonPadding, selectionLineHeight)
             
@@ -248,18 +269,22 @@ extension NSButton {
         self.attributedTitle = colorTitle
     }
 
-    class func makeButton(title: String, _ imagea: NSImage?, tabView: KSTabView)  -> NSButton {
+    class func makeButton(title: String?, _ image: NSImage?,_ alternateImage: NSImage?, tabView: KSTabView)  -> NSButton {
         var button = NSButton(frame: NSZeroRect)
         button.setCell(ButtonCell())
-        button.title = title
-        button.image = imagea
-        button.image?.size = NSMakeSize(tabView.fontSize * 1.7, tabView.fontSize * 1.7)
-        button.setButtonType(NSButtonType.ToggleButton)
-        button.alternateImage = NSImage(named: "altFacebook.png")
-        button.alternateImage?.size = NSMakeSize(tabView.fontSize * 1.7, tabView.fontSize * 1.7)
         button.imagePosition = NSCellImagePosition.ImageLeft
+        button.setButtonType(NSButtonType.ToggleButton)
         button.bordered = false
         button.enabled = false
+        
+        button.title = title ?? ""
+        
+        button.image = image
+        button.image?.size = NSMakeSize(tabView.fontSize * 1.7, tabView.fontSize * 1.7)
+        
+        button.alternateImage = alternateImage
+        button.alternateImage?.size = NSMakeSize(tabView.fontSize * 1.7, tabView.fontSize * 1.7)
+        
         button.setAttributedString(tabView.fontSize, color: tabView.labelColor)
         button.sizeToFit()
         button.frame.size.height = tabView.fontSize * 1.7

@@ -22,9 +22,8 @@ class ViewController: NSViewController {
     
     @IBAction func addLeft(sender: AnyObject) {
         tabView.removeLeftButtons()
-        tabView.pushButtonLeft("Reload", identifier: "reload", image: nil)
-        tabView.pushButtonLeft("Jump", identifier: "jump", image: nil)
-        tabView.selectedButtons = ["jump"]
+        tabView.pushButtonLeft("reload", title: "Reload")
+        tabView.pushButtonLeft("twitterL", image: NSImage(named: "twitter.png")!, alternateImage: nil)
     }
     
     @IBAction func leftClean(sender: AnyObject) {
@@ -33,21 +32,23 @@ class ViewController: NSViewController {
 
     @IBAction func addRight(sender: AnyObject) {
         tabView.removeRightButtons()
-        .pushButtonRight("Facebook", identifier: "facebook", image: NSImage(named: "facebook.png"))
-            .pushButtonRight("Google", identifier: "google", image: nil)//NSImage(named: "google.png")
-            .pushButtonRight("", identifier: "instagram", image: NSImage(named: "instagram.png"))
-            .pushButtonRight("Twitter", identifier: "twitter", image: NSImage(named: "twitter.png")).selectedButtons = ["new"]
+            .pushButtonRight("facebook", title: "Facebook", image: NSImage(named: "facebook.png")!, alternateImage: NSImage(named: "altFacebook.png")!)
+            .pushButtonRight("google", image: NSImage(named: "google.png")!, alternateImage: nil)
+            .pushButtonRight("instagram", title: "Instagram")
+            .pushButtonRight("twitter", title: "Twitter", image: NSImage(named: "twitter.png")!, alternateImage: nil).selectedButtons = ["instagram"]
+        
     }
+    
     @IBAction func rightClean(sender: AnyObject) {
         tabView.removeRightButtons()
     }
 
     @IBAction func selectMultiple(sender: NSButton) {
-        tabView.selectedButtons = ["google", "twitter", "jump"]
+        tabView.selectedButtons = ["google", "twitter", "reload"]
     }
 
     @IBAction func selectOne(sender: NSButton) {
-        tabView.selectedButtons = ["delete", ]
+        tabView.selectedButtons = ["instagram", ]
     }
 
     @IBAction func clearSelection(sender: NSButton) {
