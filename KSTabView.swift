@@ -165,12 +165,12 @@ extension KSTabView {
         }
         private var underline: UnderLine!
         private let selectionLineHeight = CGFloat(3)
-        var batton = NSButton(frame: NSZeroRect)
+        var button = NSButton(frame: NSZeroRect)
 
         var selected = false {
             didSet {
                 let activeColor = self.selected ? parentTabView.selectionColor : parentTabView.labelColor
-                batton.attributedTitle = attributedString(activeColor)
+                button.attributedTitle = attributedString(activeColor)
 
                 underline.hidden = !self.selected
             }
@@ -191,14 +191,13 @@ extension KSTabView {
         
         func attributedString(color: NSColor) -> NSAttributedString {
             let font = NSFont.labelFontOfSize(parentTabView.fontSize)
-            var colorTitle = NSMutableAttributedString(attributedString: batton.attributedTitle)
+            var colorTitle = NSMutableAttributedString(attributedString: button.attributedTitle)
             
             var titleRange = NSMakeRange(0, colorTitle.length)
             colorTitle.addAttribute(NSForegroundColorAttributeName, value: color, range: titleRange)
             colorTitle.addAttribute(NSFontAttributeName, value: font, range: titleRange)
             return colorTitle
         }
-
         
         init(_ title: String, _ identifier: String?, _ imagea: NSImage?, tabView: KSTabView) {
             parentTabView = tabView
@@ -206,20 +205,20 @@ extension KSTabView {
 
             self.identifier = identifier
         
-            batton.setCell(ButtonCell())
-            batton.title = title
-            batton.image = imagea
-            batton.image?.size = NSMakeSize(parentTabView.fontSize * 1.5, parentTabView.fontSize * 1.5)
-            batton.imagePosition = NSCellImagePosition.ImageLeft
-            batton.bordered = false
-            batton.enabled = false
+            button.setCell(ButtonCell())
+            button.title = title
+            button.image = imagea
+            button.image?.size = NSMakeSize(parentTabView.fontSize * 1.7, parentTabView.fontSize * 1.7)
+            button.imagePosition = NSCellImagePosition.ImageLeft
+            button.bordered = false
+            button.enabled = false
 
-            batton.attributedTitle = attributedString(parentTabView.labelColor)
-            batton.sizeToFit()
-            self.addSubview(batton)
-            batton.frame.origin = NSMakePoint(parentTabView.buttonPadding, 3)
+            button.attributedTitle = attributedString(parentTabView.labelColor)
+            button.sizeToFit()
+            self.addSubview(button)
+            button.frame.origin = NSMakePoint(parentTabView.buttonPadding, 3)
 
-            let frameWidth = batton.frame.width + (parentTabView.buttonPadding * 2)
+            let frameWidth = button.frame.width + (parentTabView.buttonPadding * 2)
             
             /// UnderLine
             underline = UnderLine()
@@ -252,6 +251,7 @@ extension KSTabView {
         }
     }
 }
+
 extension KSTabView.KSButton {
     private class ButtonCell: NSButtonCell {
         override func drawTitle(title: NSAttributedString, withFrame frame: NSRect, inView controlView: NSView) -> NSRect {
