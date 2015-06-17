@@ -24,8 +24,11 @@ public class KSTabView: NSControl {
     @IBInspectable var fontSize: CGFloat = 16
     @IBInspectable var buttonPadding: CGFloat = 10
     
-    var leftButtonList = [KSButton]()
-    var rightButtonList = [KSButton]()
+    private var leftButtonList = [KSButton]()
+    private var rightButtonList = [KSButton]()
+    
+    public var leftImagePosition = NSCellImagePosition.ImageLeft
+    public var rightImagePosition = NSCellImagePosition.ImageLeft
     
     var selectionType: SelectionType = .One {
         didSet {
@@ -117,6 +120,13 @@ public class KSTabView: NSControl {
         
         
         var button = KSButton(identifier, title, image, alternateImage, tabView: self)
+        if let image = image {
+            if align == .Left {
+                button.button.imagePosition = leftImagePosition
+            } else if align == .Right {
+                button.button.imagePosition = rightImagePosition
+            }
+        }
         button.target = self
         button.action = "buttonPressed:"
         self.addSubview(button)
@@ -287,7 +297,8 @@ extension NSButton {
         
         button.setAttributedString(tabView.fontSize, color: tabView.labelColor)
         button.sizeToFit()
-        button.frame.size.height = tabView.fontSize * 1.7
+//        button.frame.size.height = tabView.fontSize * 1.7
+        button.frame.size.height *= 1.7
         return button
     }
 }

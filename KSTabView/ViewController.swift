@@ -23,7 +23,7 @@ class ViewController: NSViewController {
     @IBAction func addLeft(sender: AnyObject) {
         tabView.removeLeftButtons()
         tabView.pushButtonLeft("reload", title: "Reload")
-        tabView.pushButtonLeft("twitterL", image: NSImage(named: "twitter.png")!, alternateImage: nil)
+        tabView.pushButtonLeft("twitterL", title: "TweetBot", image: NSImage(named: "twitter.png")!, alternateImage: nil)
     }
     
     @IBAction func leftClean(sender: AnyObject) {
@@ -31,6 +31,7 @@ class ViewController: NSViewController {
     }
 
     @IBAction func addRight(sender: AnyObject) {
+        tabView.rightImagePosition = NSCellImagePosition.ImageAbove
         tabView.removeRightButtons()
             .pushButtonRight("facebook", title: "Facebook", image: NSImage(named: "facebook.png")!, alternateImage: NSImage(named: "altFacebook.png")!)
             .pushButtonRight("google", image: NSImage(named: "google.png")!, alternateImage: nil)

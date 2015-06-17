@@ -669,13 +669,13 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="KSTabView" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="643" height="263"/>
+                        <rect key="frame" x="0.0" y="0.0" width="643" height="293"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="2gq-1a-xRX" customClass="KSTabView" customModule="KSTabView" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="223" width="643" height="40"/>
+                                <rect key="frame" x="0.0" y="223" width="643" height="70"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="fgJ-g9-tpj"/>
+                                    <constraint firstAttribute="height" constant="70" id="fgJ-g9-tpj"/>
                                 </constraints>
                                 <connections>
                                     <action selector="actionOccured:" target="XfG-lQ-9wD" id="ZfQ-Em-usX"/>
