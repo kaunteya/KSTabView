@@ -203,14 +203,12 @@ extension KSTabView {
             self.addSubview(button)
             
             button.frame.origin = NSMakePoint(parentTabView.buttonPadding, 3)
-            button.frame.size.height = parentTabView.fontSize * 1.7
             
             let frameWidth = button.frame.width + (parentTabView.buttonPadding * 2)
             
             /// UnderLine
-            underline = UnderLine()
-            underline.frame.origin = NSMakePoint(selectionLineHeight, 0)
-            underline.frame.size = NSMakeSize(frameWidth - (selectionLineHeight * 2), selectionLineHeight)
+            underline = UnderLine(frame: NSMakeRect(selectionLineHeight, 0, frameWidth - (selectionLineHeight * 2), selectionLineHeight))
+
             self.addSubview(underline)
             
             /// Frame Size
@@ -265,19 +263,17 @@ extension NSButton {
         button.imagePosition = NSCellImagePosition.ImageLeft
         button.bordered = false
         button.enabled = false
-        button.frame.size.height = tabView.fontSize * 1.7
-        
         button.setAttributedString(tabView.fontSize, color: tabView.labelColor)
-        
         button.sizeToFit()
+        button.frame.size.height = tabView.fontSize * 1.7
         return button
     }
 }
+
 extension KSTabView.KSButton {
-    
     private class UnderLine: NSBox {
-        init() {
-            super.init(frame: NSZeroRect)
+        override init(frame frameRect: NSRect) {
+            super.init(frame: frameRect)
             self.boxType = NSBoxType.Custom
             self.borderWidth = 0
             self.fillColor = NSColor.whiteColor()
@@ -285,7 +281,7 @@ extension KSTabView.KSButton {
         }
         
         required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
+            fatalError("init(coder:) invalid")
         }
     }
 }
