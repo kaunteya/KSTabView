@@ -165,12 +165,12 @@ extension KSTabView {
         }
         private var underline: UnderLine!
         private let selectionLineHeight = CGFloat(3)
-        var button = NSButton(frame: NSZeroRect)
+        var button: NSButton!
 
         var selected = false {
             didSet {
                 let activeColor = self.selected ? parentTabView.selectionColor : parentTabView.labelColor
-                button.attributedTitle = attributedString(activeColor)
+                button.setAttributedString(parentTabView.fontSize, color: activeColor)
 
                 underline.hidden = !self.selected
             }
@@ -189,35 +189,22 @@ extension KSTabView {
             self.addTrackingArea(trackingArea)
         }
         
-        func attributedString(color: NSColor) -> NSAttributedString {
-            let font = NSFont.labelFontOfSize(parentTabView.fontSize)
-            var colorTitle = NSMutableAttributedString(attributedString: button.attributedTitle)
-            
-            var titleRange = NSMakeRange(0, colorTitle.length)
-            colorTitle.addAttribute(NSForegroundColorAttributeName, value: color, range: titleRange)
-            colorTitle.addAttribute(NSFontAttributeName, value: font, range: titleRange)
-            return colorTitle
-        }
-        
         init(_ title: String, _ identifier: String?, _ imagea: NSImage?, tabView: KSTabView) {
             parentTabView = tabView
             super.init(frame: NSZeroRect)
 
             self.identifier = identifier
         
-            button.setCell(ButtonCell())
-            button.title = title
-            button.image = imagea
-            button.image?.size = NSMakeSize(parentTabView.fontSize * 1.7, parentTabView.fontSize * 1.7)
-            button.imagePosition = NSCellImagePosition.ImageLeft
-            button.bordered = false
-            button.enabled = false
 
-            button.attributedTitle = attributedString(parentTabView.labelColor)
-            button.sizeToFit()
+//            button.attributedTitle = attributedString(parentTabView.labelColor)
+  
+            button = NSButton.makeButton(title, identifier, imagea, tabView: tabView)
+            
             self.addSubview(button)
+            
             button.frame.origin = NSMakePoint(parentTabView.buttonPadding, 3)
-
+            button.frame.size.height = parentTabView.fontSize * 1.7
+            
             let frameWidth = button.frame.width + (parentTabView.buttonPadding * 2)
             
             /// UnderLine
@@ -251,14 +238,43 @@ extension KSTabView {
         }
     }
 }
-
-extension KSTabView.KSButton {
+extension NSButton {
     private class ButtonCell: NSButtonCell {
         override func drawTitle(title: NSAttributedString, withFrame frame: NSRect, inView controlView: NSView) -> NSRect {
             return super.drawTitle(self.attributedTitle, withFrame: frame, inView: controlView)
         }
     }
+    
+    func setAttributedString(fontSize: CGFloat, color: NSColor) {
+        let font = NSFont.labelFontOfSize(fontSize)
+        var colorTitle = NSMutableAttributedString(attributedString: self.attributedTitle)
+        
+        var titleRange = NSMakeRange(0, colorTitle.length)
+        colorTitle.addAttribute(NSForegroundColorAttributeName, value: color, range: titleRange)
+        colorTitle.addAttribute(NSFontAttributeName, value: font, range: titleRange)
+        self.attributedTitle = colorTitle
+    }
 
+    class func makeButton(title: String, _ identifier: String?, _ imagea: NSImage?, tabView: KSTabView)  -> NSButton {
+        var button = NSButton(frame: NSZeroRect)
+        button.setCell(ButtonCell())
+        button.title = title
+        button.identifier = identifier
+        button.image = imagea
+        button.image?.size = NSMakeSize(tabView.fontSize * 1.7, tabView.fontSize * 1.7)
+        button.imagePosition = NSCellImagePosition.ImageLeft
+        button.bordered = false
+        button.enabled = false
+        button.frame.size.height = tabView.fontSize * 1.7
+        
+        button.setAttributedString(tabView.fontSize, color: tabView.labelColor)
+        
+        button.sizeToFit()
+        return button
+    }
+}
+extension KSTabView.KSButton {
+    
     private class UnderLine: NSBox {
         init() {
             super.init(frame: NSZeroRect)

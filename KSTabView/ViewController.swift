@@ -34,8 +34,8 @@ class ViewController: NSViewController {
     @IBAction func addRight(sender: AnyObject) {
         tabView.removeRightButtons()
         .pushButtonRight("Facebook", identifier: "facebook", image: NSImage(named: "facebook.png"))
-            .pushButtonRight("Google", identifier: "google", image: NSImage(named: "google.png"))
-            .pushButtonRight("Instagram", identifier: "instagram", image: NSImage(named: "instagram.png"))
+            .pushButtonRight("Google", identifier: "google", image: nil)//NSImage(named: "google.png")
+            .pushButtonRight("", identifier: "instagram", image: NSImage(named: "instagram.png"))
             .pushButtonRight("Twitter", identifier: "twitter", image: NSImage(named: "twitter.png")).selectedButtons = ["new"]
     }
     @IBAction func rightClean(sender: AnyObject) {
