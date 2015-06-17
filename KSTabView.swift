@@ -22,7 +22,7 @@ public class KSTabView: NSControl {
     @IBInspectable var selectionColor: NSColor! = NSColor.whiteColor()
     
     @IBInspectable var fontSize: CGFloat = 16
-    @IBInspectable var buttonPadding: CGFloat = 20
+    @IBInspectable var buttonPadding: CGFloat = 10
     
     var leftButtonList = [KSButton]()
     var rightButtonList = [KSButton]()
@@ -84,18 +84,18 @@ public class KSTabView: NSControl {
         return self
     }
     
-    public func pushButtonLeft(title: String, identifier: String) -> KSTabView {
-        _pushButton(title, identifier: identifier, align: .Left)
+    public func pushButtonLeft(title: String, identifier: String, image: NSImage?) -> KSTabView {
+        _pushButton(title, identifier: identifier, image: image, align: .Left)
         return self
     }
     
-    public func pushButtonRight(title: String, identifier: String) -> KSTabView {
-        _pushButton(title, identifier: identifier, align: .Right)
+    public func pushButtonRight(title: String, identifier: String, image: NSImage?) -> KSTabView {
+        _pushButton(title, identifier: identifier, image: image, align: .Right)
         return self
     }
     
-    private func _pushButton(title: String, identifier: String?, align: NSLayoutAttribute) {
-        var button = KSButton(title, identifier, tabView: self)
+    private func _pushButton(title: String, identifier: String?, image: NSImage?, align: NSLayoutAttribute) {
+        var button = KSButton(title, identifier, image, tabView: self)
         button.target = self
         button.action = "buttonPressed:"
         self.addSubview(button)
@@ -162,13 +162,15 @@ extension KSTabView {
                 self.needsDisplay = true
             }
         }
-        private var label: Label?
-        private var image: NSImage?
         private var underline: UnderLine!
         private let selectionLineHeight = CGFloat(3)
+        var batton = NSButton(frame: NSZeroRect)
+
         var selected = false {
             didSet {
-                label?.textColor = self.selected ? parentTabView.selectionColor : parentTabView.labelColor
+                let activeColor = self.selected ? parentTabView.selectionColor : parentTabView.labelColor
+                batton.attributedTitle = attributedString(activeColor)
+
                 underline.hidden = !self.selected
             }
         }
@@ -186,25 +188,48 @@ extension KSTabView {
             self.addTrackingArea(trackingArea)
         }
         
-        init(_ title: String, _ identifier: String?, tabView: KSTabView) {
+        func attributedString(color: NSColor) -> NSAttributedString {
+            let font = NSFont.labelFontOfSize(parentTabView.fontSize)
+            var colorTitle = NSMutableAttributedString(attributedString: batton.attributedTitle)
+            
+            var titleRange = NSMakeRange(0, colorTitle.length)
+            colorTitle.addAttribute(NSForegroundColorAttributeName, value: color, range: titleRange)
+            colorTitle.addAttribute(NSFontAttributeName, value: font, range: titleRange)
+            return colorTitle
+        }
+
+        
+        init(_ title: String, _ identifier: String?, _ imagea: NSImage?, tabView: KSTabView) {
             parentTabView = tabView
             super.init(frame: NSZeroRect)
 
             self.identifier = identifier
+        
+            batton.setCell(KSButtonCell())
+            batton.title = title
+            batton.image = imagea
+            batton.image?.size = NSMakeSize(parentTabView.fontSize * 1.5, parentTabView.fontSize * 1.5)
+            batton.imagePosition = NSCellImagePosition.ImageLeft
+            batton.bordered = false
+            batton.enabled = false
+
+            batton.attributedTitle = attributedString(parentTabView.labelColor)
+            batton.sizeToFit()
+            self.addSubview(batton)
+            batton.frame.origin = NSMakePoint(parentTabView.buttonPadding, 3)
+
+            let frameWidth = batton.frame.width + (parentTabView.buttonPadding * 2)
             
-            label = Label(title: title, color: parentTabView.labelColor)
-            label?.frame.origin = NSMakePoint(parentTabView.buttonPadding / 2, selectionLineHeight + 2)
-            self.addSubview(label!)
-            
-            
-            self.frame.size = NSMakeSize(label!.attributedStringValue.size.width + parentTabView.buttonPadding, NSHeight(parentTabView.frame))
-            
+            /// UnderLine
             underline = UnderLine()
             underline.frame.origin = NSMakePoint(selectionLineHeight, 0)
-            underline.frame.size = NSMakeSize(self.frame.size.width - (selectionLineHeight * 2) + parentTabView.buttonPadding, selectionLineHeight)
+            underline.frame.size = NSMakeSize(frameWidth - (selectionLineHeight * 2), selectionLineHeight)
             self.addSubview(underline)
+            
+            /// Frame Size
+            self.frame.size = NSMakeSize(frameWidth, NSHeight(parentTabView.frame))
+            
         }
-        
         
         required init?(coder: NSCoder) { fatalError("Init from IB not supported") }
         
@@ -214,7 +239,6 @@ extension KSTabView {
         
         override func mouseUp(theEvent: NSEvent) {
             NSApplication.sharedApplication().sendAction(self.action, to: self.target, from: self)
-
         }
         
         override func drawRect(dirtyRect: NSRect) {
@@ -228,20 +252,9 @@ extension KSTabView {
     }
 }
 
-private class Label: NSTextField {
-    init(title: String, color: NSColor) {
-        super.init(frame: NSZeroRect)
-        self.editable = false
-        self.selectable = false
-        self.stringValue = title
-        self.textColor = color
-        self.bordered = false
-        self.backgroundColor = NSColor.clearColor()
-        self.sizeToFit()
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+private class KSButtonCell: NSButtonCell {
+    override func drawTitle(title: NSAttributedString, withFrame frame: NSRect, inView controlView: NSView) -> NSRect {
+        return super.drawTitle(self.attributedTitle, withFrame: frame, inView: controlView)
     }
 }
 

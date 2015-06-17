@@ -22,8 +22,8 @@ class ViewController: NSViewController {
     
     @IBAction func addLeft(sender: AnyObject) {
         tabView.removeLeftButtons()
-        tabView.pushButtonLeft("Reload", identifier: "reload")
-        tabView.pushButtonLeft("Jump", identifier: "jump")
+        tabView.pushButtonLeft("Reload", identifier: "reload", image: nil)
+        tabView.pushButtonLeft("Jump", identifier: "jump", image: nil)
         tabView.selectedButtons = ["jump"]
     }
     
@@ -33,17 +33,17 @@ class ViewController: NSViewController {
 
     @IBAction func addRight(sender: AnyObject) {
         tabView.removeRightButtons()
-            .pushButtonRight("Help", identifier: "help")
-            .pushButtonRight("Modify", identifier: "modify")
-            .pushButtonRight("DeleteLongString", identifier: "delete")
-            .pushButtonRight("New", identifier: "new").selectedButtons = ["new"]
+        .pushButtonRight("Facebook", identifier: "facebook", image: NSImage(named: "facebook.png"))
+            .pushButtonRight("Google", identifier: "google", image: NSImage(named: "google.png"))
+            .pushButtonRight("Instagram", identifier: "instagram", image: NSImage(named: "instagram.png"))
+            .pushButtonRight("Twitter", identifier: "twitter", image: NSImage(named: "twitter.png")).selectedButtons = ["new"]
     }
     @IBAction func rightClean(sender: AnyObject) {
         tabView.removeRightButtons()
     }
 
     @IBAction func selectMultiple(sender: NSButton) {
-        tabView.selectedButtons = ["delete", "help", "jump"]
+        tabView.selectedButtons = ["google", "twitter", "jump"]
     }
 
     @IBAction func selectOne(sender: NSButton) {

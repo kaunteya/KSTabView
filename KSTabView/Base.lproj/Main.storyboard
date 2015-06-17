@@ -677,17 +677,6 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="fgJ-g9-tpj"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
-                                        <real key="value" value="12"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="buttonPadding">
-                                        <real key="value" value="25"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="hoverColor">
-                                        <color key="value" red="0.047058823529411764" green="0.31764705882352939" blue="0.26666666666666666" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="actionOccured:" target="XfG-lQ-9wD" id="ZfQ-Em-usX"/>
                                 </connections>
@@ -695,7 +684,7 @@
                             <button horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="scb-kh-R46">
                                 <rect key="frame" x="5" y="111" width="93" height="32"/>
                                 <buttonCell key="cell" type="push" title="Add Left" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nD3-N7-GQC">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <behavior key="behavior" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
@@ -705,7 +694,7 @@
                             <button horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mHR-9G-M0x">
                                 <rect key="frame" x="95" y="111" width="118" height="32"/>
                                 <buttonCell key="cell" type="push" title="Remove Left" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="C6w-ww-A1u">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
@@ -724,7 +713,7 @@
                             </button>
                             <button horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ogd-br-RH1">
                                 <rect key="frame" x="412" y="111" width="127" height="32"/>
-                                <buttonCell key="cell" type="push" title="Remove Right" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ONQ-uc-BOZ">
+                                <buttonCell key="cell" type="push" title="Remove Right" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="ONQ-uc-BOZ">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -755,7 +744,7 @@
                             <button horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eTa-lc-zcM">
                                 <rect key="frame" x="5" y="13" width="108" height="32"/>
                                 <buttonCell key="cell" type="push" title="Select One" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mmX-mZ-gzI">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES" accelerator="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
@@ -855,7 +844,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="529.5" y="370.5"/>
+            <point key="canvasLocation" x="280.5" y="334.5"/>
         </scene>
     </scenes>
 </document>

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E309C9341B31812D0001D6B5 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = E309C9301B31812D0001D6B5 /* facebook.png */; };
+		E309C9351B31812D0001D6B5 /* google.png in Resources */ = {isa = PBXBuildFile; fileRef = E309C9311B31812D0001D6B5 /* google.png */; };
+		E309C9361B31812D0001D6B5 /* instagram.png in Resources */ = {isa = PBXBuildFile; fileRef = E309C9321B31812D0001D6B5 /* instagram.png */; };
+		E309C9371B31812D0001D6B5 /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = E309C9331B31812D0001D6B5 /* twitter.png */; };
 		E3D280F81B2CA6D600F15CCC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D280F71B2CA6D600F15CCC /* AppDelegate.swift */; };
 		E3D280FA1B2CA6D600F15CCC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D280F91B2CA6D600F15CCC /* ViewController.swift */; };
 		E3D280FC1B2CA6D600F15CCC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3D280FB1B2CA6D600F15CCC /* Images.xcassets */; };
@@ -27,6 +31,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E309C9301B31812D0001D6B5 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = facebook.png; path = images/facebook.png; sourceTree = "<group>"; };
+		E309C9311B31812D0001D6B5 /* google.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = google.png; path = images/google.png; sourceTree = "<group>"; };
+		E309C9321B31812D0001D6B5 /* instagram.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = instagram.png; path = images/instagram.png; sourceTree = "<group>"; };
+		E309C9331B31812D0001D6B5 /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = twitter.png; path = images/twitter.png; sourceTree = "<group>"; };
 		E3D280F21B2CA6D600F15CCC /* KSTabView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KSTabView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3D280F61B2CA6D600F15CCC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E3D280F71B2CA6D600F15CCC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -58,6 +66,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E309C92F1B31811A0001D6B5 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				E309C9301B31812D0001D6B5 /* facebook.png */,
+				E309C9311B31812D0001D6B5 /* google.png */,
+				E309C9321B31812D0001D6B5 /* instagram.png */,
+				E309C9331B31812D0001D6B5 /* twitter.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		E3D280E91B2CA6D600F15CCC = {
 			isa = PBXGroup;
 			children = (
@@ -84,6 +103,7 @@
 				E3D280F91B2CA6D600F15CCC /* ViewController.swift */,
 				E3D281141B2CA71600F15CCC /* KSTabView.swift */,
 				E3DF3F2E1B2EE7F60078AEE5 /* demo.png */,
+				E309C92F1B31811A0001D6B5 /* Images */,
 				E3D280FB1B2CA6D600F15CCC /* Images.xcassets */,
 				E3D280F51B2CA6D600F15CCC /* Supporting Files */,
 			);
@@ -195,8 +215,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E309C9371B31812D0001D6B5 /* twitter.png in Resources */,
+				E309C9361B31812D0001D6B5 /* instagram.png in Resources */,
 				E3D280FC1B2CA6D600F15CCC /* Images.xcassets in Resources */,
+				E309C9341B31812D0001D6B5 /* facebook.png in Resources */,
 				E3D280FF1B2CA6D600F15CCC /* Main.storyboard in Resources */,
+				E309C9351B31812D0001D6B5 /* google.png in Resources */,
 				E3DF3F2F1B2EE7F60078AEE5 /* demo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
