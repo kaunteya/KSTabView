@@ -9,6 +9,7 @@
 import Foundation
 import Cocoa
 
+@IBDesignable
 public class KSTabView: NSControl {
     
     enum SelectionType: Int {
@@ -205,7 +206,7 @@ extension KSTabView {
                 self.needsDisplay = true
             }
         }
-        private var underline: UnderLine!
+        var underLayer = CAShapeLayer()
         private let selectionLineHeight = CGFloat(3)
         
         private var button: NSButton!
@@ -215,7 +216,18 @@ extension KSTabView {
                 let activeColor = self.selected ? parentTabView.selectionColor : parentTabView.labelColor
                 button.setAttributedString(parentTabView.fontSize, color: activeColor)
                 button.state = self.selected ? NSOnState : NSOffState
-                underline.hidden = !self.selected
+                
+                CATransaction.begin()
+                if self.selected {
+                    CATransaction.setAnimationDuration(0.5)
+                } else {
+                    CATransaction.setDisableActions(true)
+                }
+                let timing = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+                CATransaction.setAnimationTimingFunction(timing)
+                underLayer.strokeStart = 0
+                underLayer.strokeEnd =  self.selected ? 1 : 0
+                CATransaction.commit()
             }
         }
         
@@ -230,11 +242,9 @@ extension KSTabView {
         }
         
         init(aButton: NSButton, tabView: KSTabView) {
-            let a = aButton.imagePosition
-            let gdf = aButton.title
-            let iden = aButton.identifier
             parentTabView = tabView
             super.init(frame: NSZeroRect)
+            self.wantsLayer = true
             self.identifier = aButton.identifier
             self.button = aButton
             self.target = tabView
@@ -244,12 +254,21 @@ extension KSTabView {
             
             let frameWidth = self.button.frame.width + (parentTabView.buttonPadding * 2)
             
-            /// UnderLine
-            underline = UnderLine(frame: NSMakeRect(selectionLineHeight, 0, frameWidth - (selectionLineHeight * 2), selectionLineHeight))
-            self.addSubview(underline)
-            
+            makeUnderLayer(frameWidth)
+
             /// Frame Size
             self.frame.size = NSMakeSize(frameWidth, NSHeight(parentTabView.frame))
+        }
+        
+        func makeUnderLayer(frameWidth: CGFloat) {
+            let layerWidth = frameWidth - (selectionLineHeight * 2)
+            var path = NSBezierPath()
+            path.moveToPoint(NSMakePoint(selectionLineHeight, 2))
+            path.lineToPoint(NSMakePoint(layerWidth, 2))
+            underLayer.path = path.CGPath
+            underLayer.lineWidth = selectionLineHeight
+            underLayer.strokeColor = NSColor.whiteColor().CGColor
+            self.layer!.addSublayer(underLayer)
         }
         
         required init?(coder: NSCoder) { fatalError("Init from IB not supported") }
@@ -313,18 +332,45 @@ extension NSButton {
     }
 }
 
-extension KSTabView.KSButton {
-    private class UnderLine: NSBox {
-        override init(frame frameRect: NSRect) {
-            super.init(frame: frameRect)
-            self.boxType = NSBoxType.Custom
-            self.borderWidth = 0
-            self.fillColor = NSColor.whiteColor()
-            self.hidden = true
-        }
-        
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) invalid")
+extension NSBezierPath {
+    var CGPath: CGPathRef {
+        get {
+            return self.convertToCGPath()
         }
     }
+    
+    /// Transforms the NSBezierPath into a CGPathRef
+    ///
+    /// :returns: The transformed NSBezierPath
+    private func convertToCGPath() -> CGPathRef {
+        
+        // Create path
+        var path = CGPathCreateMutable()
+        var points = UnsafeMutablePointer<NSPoint>.alloc(3)
+        let numElements = self.elementCount
+        
+        if numElements > 0 {
+            var didClosePath = true
+            for index in 0..<numElements {
+                let pathType = self.elementAtIndex(index, associatedPoints: points)
+                switch pathType {
+                case .MoveToBezierPathElement:
+                    CGPathMoveToPoint(path, nil, points[0].x, points[0].y)
+                case .LineToBezierPathElement:
+                    CGPathAddLineToPoint(path, nil, points[0].x, points[0].y)
+                    didClosePath = false
+                case .CurveToBezierPathElement:
+                    CGPathAddCurveToPoint(path, nil, points[0].x, points[0].y, points[1].x, points[1].y, points[2].x, points[2].y)
+                    didClosePath = false
+                case .ClosePathBezierPathElement:
+                    CGPathCloseSubpath(path)
+                    didClosePath = true
+                }
+            }
+            if !didClosePath { CGPathCloseSubpath(path) }
+        }
+        points.dealloc(3)
+        return path
+    }
 }
+
