@@ -226,7 +226,7 @@ extension KSTabView {
                 let timing = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
                 CATransaction.setAnimationTimingFunction(timing)
                 underLayer.strokeStart = 0
-                underLayer.strokeEnd =  self.selected ? 1 : 0
+                underLayer.strokeEnd =  self.selected ? 0.5 : 0
                 CATransaction.commit()
             }
         }
@@ -264,7 +264,7 @@ extension KSTabView {
             let layerWidth = frameWidth - (selectionLineHeight * 2)
             var path = NSBezierPath()
             path.moveToPoint(NSMakePoint(selectionLineHeight, 2))
-            path.lineToPoint(NSMakePoint(layerWidth, 2))
+            path.lineToPoint(NSMakePoint(frameWidth - selectionLineHeight, 2))
             underLayer.path = path.CGPath
             underLayer.lineWidth = selectionLineHeight
             underLayer.strokeColor = NSColor.whiteColor().CGColor
