@@ -266,6 +266,7 @@ extension KSTabView {
             path.moveToPoint(NSMakePoint(selectionLineHeight, 2))
             path.lineToPoint(NSMakePoint(frameWidth - selectionLineHeight, 2))
             underLayer.path = path.CGPath
+            underLayer.strokeEnd = 0
             underLayer.lineWidth = selectionLineHeight
             underLayer.strokeColor = NSColor.whiteColor().CGColor
             self.layer!.addSublayer(underLayer)
