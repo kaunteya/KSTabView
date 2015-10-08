@@ -32,7 +32,7 @@ class ViewController: NSViewController {
 
     @IBAction func addRight(sender: NSSegmentedControl) {
         tabView.rightImagePosition = NSCellImagePosition(rawValue: UInt(sender.selectedSegment))!
-        print("Image position \(tabView.rightImagePosition.rawValue)")
+
         tabView.removeRightButtons()
             .pushButtonRight("facebook", title: "Facebook", image: NSImage(named: "facebook.png")!, alternateImage: NSImage(named: "altFacebook.png")!)
             .pushButtonRight("google", title: "Google", image: NSImage(named: "google.png")!, alternateImage: nil)
