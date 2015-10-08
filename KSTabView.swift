@@ -47,14 +47,14 @@ public class KSTabView: NSControl {
             switch selectionType {
             case .One:
                 if newIdentifierList.count > 1 {
-                    println("Only one button can be selected")
+                    Swift.print("Only one button can be selected")
                     return
                 }
             default:()
             }
             
             for button in (leftButtonList + rightButtonList) {
-                if let validIdentifier = button.identifier where contains(newIdentifierList, validIdentifier) {
+                if let validIdentifier = button.identifier where newIdentifierList.contains(validIdentifier) {
                     button.selected = true
                 } else {
                     button.selected = false
@@ -120,7 +120,7 @@ public class KSTabView: NSControl {
     private func _pushButton(identifier: String, title: String?, image: NSImage?, alternateImage: NSImage?, align: NSLayoutAttribute) {
         
         var imagePosition: NSCellImagePosition = NSCellImagePosition.NoImage
-        if let image = image {
+        if image != nil {
             if align == .Left {
                 imagePosition = leftImagePosition
             } else if align == .Right {
@@ -128,16 +128,15 @@ public class KSTabView: NSControl {
             }
         }
         
-        var coreButton = NSButton(frame: NSZeroRect)
+        let coreButton = NSButton(frame: NSZeroRect)
         coreButton.title = title ?? ""
         coreButton.identifier = identifier
         coreButton.image = image
         coreButton.alternateImage = alternateImage
         coreButton.imagePosition = imagePosition
         coreButton.updateButtonFortabView(self)
-        let dfff = coreButton.imagePosition
 
-        var button = KSButton(aButton: coreButton, tabView: self)
+        let button = KSButton(aButton: coreButton, tabView: self)
         self.addSubview(button)
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -166,14 +165,14 @@ public class KSTabView: NSControl {
         self.addConstraints(
             NSLayoutConstraint.constraintsWithVisualFormat(
                 formatString,
-                options: NSLayoutFormatOptions(0),
+                options: NSLayoutFormatOptions(rawValue: 0),
                 metrics: ["size": button.frame.size.width],
                 views: viewsDictionary)
         )
         self.addConstraints(
             NSLayoutConstraint.constraintsWithVisualFormat(
                 "V:[button(height)]",
-                options: NSLayoutFormatOptions(0),
+                options: NSLayoutFormatOptions(rawValue: 0),
                 metrics: ["height": self.frame.size.height],
                 views: ["button" : button])
         )
@@ -237,7 +236,7 @@ extension KSTabView {
             if trackingArea != nil {
                 self.removeTrackingArea(trackingArea)
             }
-            trackingArea = NSTrackingArea(rect: self.bounds, options: NSTrackingAreaOptions.MouseEnteredAndExited | NSTrackingAreaOptions.ActiveAlways, owner: self, userInfo: nil)
+            trackingArea = NSTrackingArea(rect: self.bounds, options: [NSTrackingAreaOptions.MouseEnteredAndExited, NSTrackingAreaOptions.ActiveAlways], owner: self, userInfo: nil)
             self.addTrackingArea(trackingArea)
         }
         
@@ -261,8 +260,8 @@ extension KSTabView {
         }
         
         func makeUnderLayer(frameWidth: CGFloat) {
-            let layerWidth = frameWidth - (selectionLineHeight * 2)
-            var path = NSBezierPath()
+//            let layerWidth = frameWidth - (selectionLineHeight * 2)
+            let path = NSBezierPath()
             path.moveToPoint(NSMakePoint(selectionLineHeight, 2))
             path.lineToPoint(NSMakePoint(frameWidth - selectionLineHeight, 2))
             underLayer.path = path.CGPath
@@ -301,7 +300,7 @@ extension NSButton {
             self.imageDimsWhenDisabled = false
         }
         
-        required init(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+        required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
         override func drawTitle(title: NSAttributedString, withFrame frame: NSRect, inView controlView: NSView) -> NSRect {
             return super.drawTitle(self.attributedTitle, withFrame: frame, inView: controlView)
@@ -310,18 +309,19 @@ extension NSButton {
     
     func setAttributedString(fontSize: CGFloat, color: NSColor) {
         let font = NSFont.labelFontOfSize(fontSize)
-        var colorTitle = NSMutableAttributedString(attributedString: self.attributedTitle)
+        let colorTitle = NSMutableAttributedString(attributedString: self.attributedTitle)
         
-        var titleRange = NSMakeRange(0, colorTitle.length)
+        let titleRange = NSMakeRange(0, colorTitle.length)
         colorTitle.addAttribute(NSForegroundColorAttributeName, value: color, range: titleRange)
         colorTitle.addAttribute(NSFontAttributeName, value: font, range: titleRange)
         self.attributedTitle = colorTitle
     }
 
     func updateButtonFortabView(tabView: KSTabView){
-        var oldImagePosition = self.imagePosition
+        let oldImagePosition = self.imagePosition
         self.setButtonType(NSButtonType.ToggleButton)
-        self.setCell(ButtonCell(title: self.title, cellImage: self.image))
+
+        self.cell = ButtonCell(title: self.title, cellImage: self.image)
         self.imagePosition = oldImagePosition
         self.bordered = false
         self.enabled = false
@@ -342,12 +342,12 @@ extension NSBezierPath {
     
     /// Transforms the NSBezierPath into a CGPathRef
     ///
-    /// :returns: The transformed NSBezierPath
+    /// - returns: The transformed NSBezierPath
     private func convertToCGPath() -> CGPathRef {
         
         // Create path
-        var path = CGPathCreateMutable()
-        var points = UnsafeMutablePointer<NSPoint>.alloc(3)
+        let path = CGPathCreateMutable()
+        let points = UnsafeMutablePointer<NSPoint>.alloc(3)
         let numElements = self.elementCount
         
         if numElements > 0 {
