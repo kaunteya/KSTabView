@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
     </dependencies>
@@ -676,12 +676,14 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="fgJ-g9-tpj"/>
                                 </constraints>
+                                <animations/>
                                 <connections>
                                     <action selector="actionOccured:" target="XfG-lQ-9wD" id="ZfQ-Em-usX"/>
                                 </connections>
                             </customView>
-                            <button horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="scb-kh-R46">
+                            <button horizontalHuggingPriority="1000" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="scb-kh-R46">
                                 <rect key="frame" x="5" y="111" width="93" height="32"/>
+                                <animations/>
                                 <buttonCell key="cell" type="push" title="Add Left" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nD3-N7-GQC">
                                     <behavior key="behavior" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -690,8 +692,9 @@
                                     <action selector="addLeft:" target="XfG-lQ-9wD" id="W4W-Mb-dAI"/>
                                 </connections>
                             </button>
-                            <button horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mHR-9G-M0x">
+                            <button horizontalHuggingPriority="1000" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mHR-9G-M0x">
                                 <rect key="frame" x="95" y="111" width="118" height="32"/>
+                                <animations/>
                                 <buttonCell key="cell" type="push" title="Remove Left" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="C6w-ww-A1u">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -700,8 +703,9 @@
                                     <action selector="leftClean:" target="XfG-lQ-9wD" id="BBw-zP-H2J"/>
                                 </connections>
                             </button>
-                            <button horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ogd-br-RH1">
+                            <button horizontalHuggingPriority="1000" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ogd-br-RH1">
                                 <rect key="frame" x="258" y="111" width="127" height="32"/>
+                                <animations/>
                                 <buttonCell key="cell" type="push" title="Remove Right" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="ONQ-uc-BOZ">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -710,8 +714,9 @@
                                     <action selector="rightClean:" target="XfG-lQ-9wD" id="0Ei-j4-G4B"/>
                                 </connections>
                             </button>
-                            <button horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yNj-Xy-b9u">
+                            <button horizontalHuggingPriority="1000" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yNj-Xy-b9u">
                                 <rect key="frame" x="546" y="14" width="92" height="32"/>
+                                <animations/>
                                 <buttonCell key="cell" type="push" title="Clear All" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bj5-jY-py9">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -720,8 +725,9 @@
                                     <action selector="clearSelection:" target="XfG-lQ-9wD" id="U5C-eJ-XRs"/>
                                 </connections>
                             </button>
-                            <button horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mJr-jx-XCa">
+                            <button horizontalHuggingPriority="1000" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mJr-jx-XCa">
                                 <rect key="frame" x="110" y="13" width="132" height="32"/>
+                                <animations/>
                                 <buttonCell key="cell" type="push" title="Select Multiple" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yVE-Z1-JSv">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -730,8 +736,9 @@
                                     <action selector="selectMultiple:" target="XfG-lQ-9wD" id="m1X-pc-6ly"/>
                                 </connections>
                             </button>
-                            <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Uwq-Ts-e1D">
+                            <segmentedControl verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uwq-Ts-e1D">
                                 <rect key="frame" x="234" y="192" width="176" height="24"/>
+                                <animations/>
                                 <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="zAe-7I-AXi">
                                     <font key="font" metaFont="system"/>
                                     <segments>
@@ -746,18 +753,21 @@
                             </segmentedControl>
                             <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="1SL-ec-JSs">
                                 <rect key="frame" x="11" y="178" width="621" height="5"/>
+                                <animations/>
                                 <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                 <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <font key="titleFont" metaFont="system"/>
                             </box>
                             <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="UsF-aF-GVG">
                                 <rect key="frame" x="11" y="80" width="621" height="5"/>
+                                <animations/>
                                 <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                 <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <font key="titleFont" metaFont="system"/>
                             </box>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sjg-0O-Nyz">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sjg-0O-Nyz">
                                 <rect key="frame" x="18" y="51" width="134" height="21"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Button Selection" id="MV4-bd-eQD">
                                     <font key="font" metaFont="system" size="17"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -766,14 +776,16 @@
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dsC-hB-HD2">
                                 <rect key="frame" x="18" y="194" width="119" height="21"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Selection Type" id="uiX-bf-ZRY">
                                     <font key="font" metaFont="system" size="17"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TqL-z7-Dhk">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TqL-z7-Dhk">
                                 <rect key="frame" x="18" y="149" width="183" height="21"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Add / Remove Buttons" id="zdX-YK-6FC">
                                     <font key="font" metaFont="system" size="17"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -782,6 +794,7 @@
                             </textField>
                             <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3pW-WT-TwV">
                                 <rect key="frame" x="392" y="116" width="242" height="24"/>
+                                <animations/>
                                 <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="XBh-o1-iZ9">
                                     <font key="font" metaFont="system"/>
                                     <segments>
@@ -797,8 +810,9 @@
                                     <action selector="addRight:" target="XfG-lQ-9wD" id="Lqo-6B-WjD"/>
                                 </connections>
                             </segmentedControl>
-                            <button horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eTa-lc-zcM">
+                            <button horizontalHuggingPriority="1000" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eTa-lc-zcM">
                                 <rect key="frame" x="5" y="13" width="108" height="32"/>
+                                <animations/>
                                 <buttonCell key="cell" type="push" title="Select One" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mmX-mZ-gzI">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES" accelerator="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -843,6 +857,7 @@
                             <constraint firstItem="sjg-0O-Nyz" firstAttribute="top" secondItem="UsF-aF-GVG" secondAttribute="bottom" constant="10" id="vnV-Xg-qW9"/>
                             <constraint firstItem="1SL-ec-JSs" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="11" id="ybp-s4-Gkh"/>
                         </constraints>
+                        <animations/>
                     </view>
                     <connections>
                         <outlet property="tabView" destination="2gq-1a-xRX" id="kvd-J8-IL6"/>

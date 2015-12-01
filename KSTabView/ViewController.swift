@@ -13,7 +13,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var tabView: KSTabView!
 
     @IBAction func selectionTypeChanged(sender: NSSegmentedControl) {
-        tabView.selectionType = KSTabView.SelectionType(rawValue: sender.selectedSegment)!
+        tabView.selectionType = KSTabView.SelectionType(rawValue: sender.selectedSegment)
     }
     
     @IBAction func actionOccured(sender: NSString?) {
