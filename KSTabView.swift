@@ -23,6 +23,8 @@ public class KSTabView: NSControl {
     @IBInspectable var selectionColor: NSColor! = NSColor.whiteColor()
 
     @IBInspectable var fontSize: CGFloat = 16
+
+    /// Padding left and right
     @IBInspectable var buttonPadding: CGFloat = 10
 
     private var leftButtonList = [KSButton]()
@@ -257,12 +259,11 @@ extension KSTabView {
             makeUnderLayer(frameWidth)
 
             /// Frame Size
-            let frameHeight = tabView.fontSize * 3.0
+            let frameHeight = self.button.frame.height + (parentTabView.fontSize * 0.7)
             self.frame.size = NSSize(width: frameWidth, height: frameHeight)
         }
 
         func makeUnderLayer(frameWidth: CGFloat) {
-//            let layerWidth = frameWidth - (selectionLineHeight * 2)
             let path = NSBezierPath()
             path.moveToPoint(NSMakePoint(selectionLineHeight, 2))
             path.lineToPoint(NSMakePoint(frameWidth - selectionLineHeight, 2))
@@ -304,6 +305,7 @@ extension NSButton {
 
         required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
+        // To set title of the button to attributed string
         override func drawTitle(title: NSAttributedString, withFrame frame: NSRect, inView controlView: NSView) -> NSRect {
             return super.drawTitle(self.attributedTitle, withFrame: frame, inView: controlView)
         }
