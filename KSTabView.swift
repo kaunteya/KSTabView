@@ -173,7 +173,7 @@ public class KSTabView: NSControl {
             NSLayoutConstraint.constraintsWithVisualFormat(
                 "V:[button(height)]",
                 options: NSLayoutFormatOptions(rawValue: 0),
-                metrics: ["height": self.frame.size.height],
+                metrics: ["height": button.frame.size.height],
                 views: ["button" : button])
         )
     }
@@ -205,7 +205,7 @@ extension KSTabView {
             }
         }
         var underLayer = CAShapeLayer()
-        private let selectionLineHeight = CGFloat(3)
+        private let selectionLineHeight: CGFloat
 
         private var button: NSButton!
 
@@ -241,6 +241,8 @@ extension KSTabView {
 
         init(aButton: NSButton, tabView: KSTabView) {
             parentTabView = tabView
+            selectionLineHeight = parentTabView.fontSize / 5
+
             super.init(frame: NSZeroRect)
             self.wantsLayer = true
             self.identifier = aButton.identifier
@@ -248,14 +250,15 @@ extension KSTabView {
             self.target = tabView
             self.action = "buttonPressed:"
             self.addSubview(self.button)
-            self.button.frame.origin = NSMakePoint(parentTabView.buttonPadding, selectionLineHeight)
+            self.button.frame.origin = NSMakePoint(parentTabView.buttonPadding, selectionLineHeight * 1.5)
 
             let frameWidth = self.button.frame.width + (parentTabView.buttonPadding * 2)
 
             makeUnderLayer(frameWidth)
 
             /// Frame Size
-            self.frame.size = NSMakeSize(frameWidth, NSHeight(parentTabView.frame))
+            let frameHeight = tabView.fontSize * 3.0
+            self.frame.size = NSSize(width: frameWidth, height: frameHeight)
         }
 
         func makeUnderLayer(frameWidth: CGFloat) {
