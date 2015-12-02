@@ -821,6 +821,17 @@
                                     <action selector="selectOne:" target="XfG-lQ-9wD" id="s0e-lv-cyz"/>
                                 </connections>
                             </button>
+                            <button horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GPL-1E-WZ5">
+                                <rect key="frame" x="431" y="14" width="121" height="32"/>
+                                <animations/>
+                                <buttonCell key="cell" type="push" title="Log selection" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="E6B-RI-YnY">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="logSelection:" target="XfG-lQ-9wD" id="h9c-aF-MCj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="eTa-lc-zcM" secondAttribute="bottom" constant="20" id="1BL-Jx-VKi"/>
@@ -829,6 +840,7 @@
                             <constraint firstItem="eTa-lc-zcM" firstAttribute="top" secondItem="sjg-0O-Nyz" secondAttribute="bottom" constant="10" id="5xo-gi-eBE"/>
                             <constraint firstAttribute="centerX" secondItem="Uwq-Ts-e1D" secondAttribute="centerX" id="Awe-ch-KjA"/>
                             <constraint firstItem="mHR-9G-M0x" firstAttribute="leading" secondItem="scb-kh-R46" secondAttribute="trailing" constant="9" id="D7e-pb-yj9"/>
+                            <constraint firstItem="yNj-Xy-b9u" firstAttribute="leading" secondItem="GPL-1E-WZ5" secondAttribute="trailing" constant="7" id="Dzx-v7-uly"/>
                             <constraint firstItem="2gq-1a-xRX" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="Gc4-oO-oVG"/>
                             <constraint firstItem="eTa-lc-zcM" firstAttribute="leading" secondItem="UsF-aF-GVG" secondAttribute="leading" id="HAq-0q-Ykv"/>
                             <constraint firstItem="3pW-WT-TwV" firstAttribute="leading" secondItem="Ogd-br-RH1" secondAttribute="trailing" constant="15" id="ITA-jz-l16"/>
@@ -836,6 +848,7 @@
                             <constraint firstItem="mHR-9G-M0x" firstAttribute="centerY" secondItem="3pW-WT-TwV" secondAttribute="centerY" id="LCQ-Ol-6WD"/>
                             <constraint firstItem="UsF-aF-GVG" firstAttribute="top" secondItem="scb-kh-R46" secondAttribute="bottom" constant="35" id="LeN-rG-mQx"/>
                             <constraint firstItem="TqL-z7-Dhk" firstAttribute="leading" secondItem="dsC-hB-HD2" secondAttribute="leading" id="MF7-Wx-D0W"/>
+                            <constraint firstItem="GPL-1E-WZ5" firstAttribute="baseline" secondItem="yNj-Xy-b9u" secondAttribute="baseline" id="OkE-b5-rO1"/>
                             <constraint firstItem="Ogd-br-RH1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mHR-9G-M0x" secondAttribute="trailing" constant="57" id="PNI-rn-3M7"/>
                             <constraint firstItem="sjg-0O-Nyz" firstAttribute="leading" secondItem="UsF-aF-GVG" secondAttribute="leading" constant="9" id="PaH-aw-I6T"/>
                             <constraint firstItem="scb-kh-R46" firstAttribute="top" secondItem="TqL-z7-Dhk" secondAttribute="bottom" constant="10" id="VVC-qX-Wbk"/>

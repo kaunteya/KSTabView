@@ -46,8 +46,15 @@ public class KSTabView: NSControl {
     }
 
     public var selectedButtons: [String] {
+        // Get the list of identifiers of selected buttons
         get {
-            return (leftButtonList + rightButtonList).filter { $0.selected }.map { $0.identifier }.filter{ $0 != nil}.map {$0!}
+            return (leftButtonList + rightButtonList).reduce([String]()) { (accum, each) in
+                if each.selected {
+                    return accum + [each.identifier!]
+                } else {
+                    return accum
+                }
+            }
         }
 
         set(newIdentifierList) {
@@ -100,8 +107,10 @@ public class KSTabView: NSControl {
         image: NSImage? = nil, alternateImage: NSImage? = nil,
         align: AlignSide = .Left) {
 
-            // Return if both title and image are nil
-            if title == nil && image == nil { return }
+            // Return if both title and image are nil at the same time
+            guard title != nil && image != nil else {
+                return
+            }
 
             // Set all the parameters related to button
             let coreButton = NSButton(frame: NSZeroRect)
@@ -163,10 +172,6 @@ public class KSTabView: NSControl {
                     metrics: ["height": button.frame.size.height],
                     views: ["button" : button])
             )
-
-
-
-
     }
 
     func buttonPressed(sender: KSButton) {

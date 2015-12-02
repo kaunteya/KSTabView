@@ -61,4 +61,9 @@ class ViewController: NSViewController {
     @IBAction func clearSelection(sender: NSButton) {
         tabView.selectedButtons = []
     }
+
+    @IBAction func logSelection(sender: NSButton) {
+        Swift.print(tabView.selectedButtons)
+    }
+
 }
