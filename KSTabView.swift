@@ -12,11 +12,11 @@ import Cocoa
 @IBDesignable
 public class KSTabView: NSControl {
 
-    enum SelectionType: Int {
-        case None =  0, One, Many
+    public enum SelectionType {
+        case None, One, Many
     }
 
-    enum AlignSide {
+    public enum AlignSide {
         case Left, Right
     }
 
@@ -35,8 +35,8 @@ public class KSTabView: NSControl {
     private var rightButtonList = [KSButton]()
 
     // Default image position would be to left of Button Label
-    public var leftImagePosition = NSCellImagePosition.ImageLeft
-    public var rightImagePosition = NSCellImagePosition.ImageLeft
+    public var imagePositionLeftButtonList = NSCellImagePosition.ImageLeft
+    public var imagePositionRightButtonList = NSCellImagePosition.ImageLeft
 
     var selectionType: SelectionType = .One {
         didSet {
@@ -96,95 +96,80 @@ public class KSTabView: NSControl {
         return self
     }
 
-    public func pushButtonLeft(identifier: String, title: String) -> KSTabView {
-        _pushButton(identifier, title: title, image: nil, alternateImage: nil, align: .Left)
-        return self
-    }
+    public func appendItem(identifier: String, title: String? = nil,
+        image: NSImage? = nil, alternateImage: NSImage? = nil,
+        align: AlignSide = .Left) {
 
-    public func pushButtonLeft(identifier: String, image: NSImage, alternateImage: NSImage?) -> KSTabView {
-        _pushButton(identifier, title: nil, image: image, alternateImage: alternateImage, align: .Left)
-        return self
-    }
-    public func pushButtonLeft(identifier: String, title: String, image: NSImage, alternateImage: NSImage?) -> KSTabView {
-        _pushButton(identifier, title: title, image: image, alternateImage: alternateImage, align: .Left)
-        return self
-    }
+            // Return if both title and image are nil
+            if title == nil && image == nil { return }
 
-    public func pushButtonRight(identifier: String, title: String) -> KSTabView {
-        _pushButton(identifier, title: title, image: nil, alternateImage: nil, align: .Right)
-        return self
-    }
+            // Set all the parameters related to button
+            let coreButton = NSButton(frame: NSZeroRect)
+            coreButton.title = title ?? ""
+            coreButton.identifier = identifier
+            coreButton.image = image
+            coreButton.alternateImage = alternateImage
 
-    public func pushButtonRight(identifier: String, image: NSImage, alternateImage: NSImage?) -> KSTabView {
-        _pushButton(identifier, title: nil, image: image, alternateImage: alternateImage, align: .Right)
-        return self
-    }
-
-    public func pushButtonRight(identifier: String, title: String, image: NSImage, alternateImage: NSImage?) -> KSTabView {
-        _pushButton(identifier, title: title, image: image, alternateImage: alternateImage, align: .Right)
-        return self
-    }
-
-    private func _pushButton(identifier: String, title: String?, image: NSImage?, alternateImage: NSImage?, align: AlignSide) {
-
-        var imagePosition: NSCellImagePosition = NSCellImagePosition.NoImage
-        if image != nil {
-            if align == .Left {
-                imagePosition = leftImagePosition
-            } else if align == .Right {
-                imagePosition = rightImagePosition
-            }
-        }
-
-        let coreButton = NSButton(frame: NSZeroRect)
-        coreButton.title = title ?? ""
-        coreButton.identifier = identifier
-        coreButton.image = image
-        coreButton.alternateImage = alternateImage
-        coreButton.imagePosition = imagePosition
-        coreButton.updateButtonFortabView(self)
-
-        let button = KSButton(aButton: coreButton, tabView: self)
-        self.addSubview(button)
-        button.translatesAutoresizingMaskIntoConstraints = false
-
-        var formatString: String!
-        var viewsDictionary: [String: AnyObject]!
-        if align == AlignSide.Left {
-            if let leftButton = leftButtonList.last {
-                viewsDictionary = ["button" : button, "leftButton" : leftButton]
-                formatString = "H:[leftButton][button(size)]"
+            if image != nil {
+                if align == .Left {
+                    coreButton.imagePosition = imagePositionLeftButtonList
+                } else if align == .Right {
+                    coreButton.imagePosition = imagePositionRightButtonList
+                }
             } else {
-                viewsDictionary = ["button": button]
-                formatString = "H:|[button(size)]"
+                coreButton.imagePosition = NSCellImagePosition.NoImage
             }
-            leftButtonList.append(button)
-        } else if align == AlignSide.Right {
-            if let rightButton = rightButtonList.last {
-                viewsDictionary = ["button" : button, "rightButton" : rightButton]
-                formatString = "H:[button(size)][rightButton]"
-            } else {
-                viewsDictionary = ["button": button]
-                formatString = "H:[button(size)]|"
-            }
-            rightButtonList.append(button)
-        }
 
-        self.addConstraints(
-            NSLayoutConstraint.constraintsWithVisualFormat(
-                formatString,
-                options: NSLayoutFormatOptions(rawValue: 0),
-                metrics: ["size": button.frame.size.width],
-                views: viewsDictionary)
-        )
-        self.addConstraints(
-            NSLayoutConstraint.constraintsWithVisualFormat(
-                "V:[button(height)]",
-                options: NSLayoutFormatOptions(rawValue: 0),
-                metrics: ["height": button.frame.size.height],
-                views: ["button" : button])
-        )
+            coreButton.updateButtonFortabView(self)
+
+            // Core button is sent to KSButton for look and feel
+            let button = KSButton(aButton: coreButton, tabView: self)
+            self.addSubview(button)
+            button.translatesAutoresizingMaskIntoConstraints = false
+
+            var formatString: String!
+            //TODO: viewsDictionary = ["newButton" : button, "oldButton" : leftButton]
+            var viewsDictionary: [String: AnyObject]!
+            if align == AlignSide.Left {
+                if let leftButton = leftButtonList.last {
+                    viewsDictionary = ["button" : button, "leftButton" : leftButton]
+                    formatString = "H:[leftButton][button(size)]"
+                } else {
+                    viewsDictionary = ["button": button]
+                    formatString = "H:|[button(size)]"
+                }
+                leftButtonList.append(button)
+            } else if align == AlignSide.Right {
+                if let rightButton = rightButtonList.last {
+                    viewsDictionary = ["button" : button, "rightButton" : rightButton]
+                    formatString = "H:[button(size)][rightButton]"
+                } else {
+                    viewsDictionary = ["button": button]
+                    formatString = "H:[button(size)]|"
+                }
+                rightButtonList.append(button)
+            }
+
+            self.addConstraints(
+                NSLayoutConstraint.constraintsWithVisualFormat(
+                    formatString,
+                    options: NSLayoutFormatOptions(rawValue: 0),
+                    metrics: ["size": button.frame.size.width],
+                    views: viewsDictionary)
+            )
+            self.addConstraints(
+                NSLayoutConstraint.constraintsWithVisualFormat(
+                    "V:[button(height)]",
+                    options: NSLayoutFormatOptions(rawValue: 0),
+                    metrics: ["height": button.frame.size.height],
+                    views: ["button" : button])
+            )
+
+
+
+
     }
+
     func buttonPressed(sender: KSButton) {
         switch selectionType {
         case .One:
@@ -204,6 +189,8 @@ public class KSTabView: NSControl {
 
 //MARK: KSButton
 extension KSTabView {
+
+    /// KSButton is a wrapper to NSButton with added features like hover detection underline layer
     class KSButton: NSControl {
 
         private let parentTabView: KSTabView
@@ -302,6 +289,7 @@ extension KSTabView {
 }
 
 extension NSButton {
+
     private class ButtonCell: NSButtonCell {
         init(title: String, cellImage: NSImage?) {
             super.init(imageCell: cellImage)
@@ -327,6 +315,7 @@ extension NSButton {
         self.attributedTitle = colorTitle
     }
 
+    /// Updates the look and feel of button as per KSTabView
     func updateButtonFortabView(tabView: KSTabView){
         let oldImagePosition = self.imagePosition
         self.setButtonType(NSButtonType.ToggleButton)

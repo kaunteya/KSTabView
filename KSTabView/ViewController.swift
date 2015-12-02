@@ -13,7 +13,12 @@ class ViewController: NSViewController {
     @IBOutlet weak var tabView: KSTabView!
 
     @IBAction func selectionTypeChanged(sender: NSSegmentedControl) {
-        tabView.selectionType = KSTabView.SelectionType(rawValue: sender.selectedSegment)!
+        switch sender.selectedSegment {
+        case 0: tabView.selectionType = .None
+        case 1: tabView.selectionType = .One
+        case 2: tabView.selectionType = .Many
+        default: ()
+        }
     }
     
     @IBAction func actionOccured(sender: NSString?) {
@@ -22,8 +27,8 @@ class ViewController: NSViewController {
     
     @IBAction func addLeft(sender: AnyObject) {
         tabView.removeLeftButtons()
-        tabView.pushButtonLeft("reload", title: "Reload")
-        tabView.pushButtonLeft("find", title: "Find")
+        tabView.appendItem("reload", title: "Reload", align: .Left)
+        tabView.appendItem("find", title: "Find", align: .Left)
     }
     
     @IBAction func leftClean(sender: AnyObject) {
@@ -31,14 +36,14 @@ class ViewController: NSViewController {
     }
 
     @IBAction func addRight(sender: NSSegmentedControl) {
-        tabView.rightImagePosition = NSCellImagePosition(rawValue: UInt(sender.selectedSegment))!
+        tabView.imagePositionRightButtonList = NSCellImagePosition(rawValue: UInt(sender.selectedSegment))!
 
         tabView.removeRightButtons()
-            .pushButtonRight("facebook", title: "Facebook", image: NSImage(named: "facebook.png")!, alternateImage: NSImage(named: "altFacebook.png")!)
-            .pushButtonRight("google", title: "Google", image: NSImage(named: "google.png")!, alternateImage: nil)
-            .pushButtonRight("instagram", title: "Instagram", image: NSImage(named: "instagram.png")!, alternateImage: nil)
-            .pushButtonRight("twitter", title: "Twitter", image: NSImage(named: "twitter.png")!, alternateImage: nil).selectedButtons = ["instagram"]
-        
+
+        tabView.appendItem("facebook", title: "Facebook", image: NSImage(named: "facebook.png")!, alternateImage: NSImage(named: "altFacebook.png")!, align: .Right)
+        tabView.appendItem("google", title: "Google", image: NSImage(named: "google.png")!, align: .Right)
+        tabView.appendItem("instagram", title: "Instagram", image: NSImage(named: "instagram.png")!, align: .Right)
+        tabView.appendItem("twitter", title: "Twitter", image: NSImage(named: "instagram.png")!, align: .Right)
     }
     
     @IBAction func rightClean(sender: AnyObject) {
