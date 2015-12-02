@@ -40,10 +40,10 @@ class ViewController: NSViewController {
 
         tabView.removeRightButtons()
 
-        tabView.appendItem("facebook", title: "Facebook", image: NSImage(named: "facebook.png")!, alternateImage: NSImage(named: "altFacebook.png")!, align: .Right)
-        tabView.appendItem("google", title: "Google", image: NSImage(named: "google.png")!, align: .Right)
-        tabView.appendItem("instagram", title: "Instagram", image: NSImage(named: "instagram.png")!, align: .Right)
-        tabView.appendItem("twitter", title: "Twitter", image: NSImage(named: "instagram.png")!, align: .Right)
+        tabView.appendItem("facebook", title: "Facebook", image: NSImage(named: "facebook")!, alternateImage: NSImage(named: "altFacebook")!, align: .Right)
+        tabView.appendItem("google", title: "Google", image: NSImage(named: "google")!, align: .Right)
+        tabView.appendItem("instagram", title: "Instagram", image: NSImage(named: "instagram")!, align: .Right)
+        tabView.appendItem("twitter", title: "Twitter", image: NSImage(named: "twitter")!, align: .Right)
     }
     
     @IBAction func rightClean(sender: AnyObject) {

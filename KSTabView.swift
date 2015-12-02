@@ -128,7 +128,6 @@ public class KSTabView: NSControl {
             button.translatesAutoresizingMaskIntoConstraints = false
 
             var formatString: String!
-            //TODO: viewsDictionary = ["newButton" : button, "oldButton" : leftButton]
             var viewsDictionary: [String: AnyObject]!
             if align == AlignSide.Left {
                 if let leftButton = leftButtonList.last {
