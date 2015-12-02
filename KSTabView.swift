@@ -13,7 +13,11 @@ import Cocoa
 public class KSTabView: NSControl {
 
     enum SelectionType: Int {
-        case None =  0, One, Any
+        case None =  0, One, Many
+    }
+
+    enum AlignSide {
+        case Left, Right
     }
 
     @IBInspectable var backgroundColor: NSColor! = NSColor(calibratedRed: 5 / 255, green: 105 / 255, blue: 92 / 255, alpha: 1)
@@ -22,19 +26,21 @@ public class KSTabView: NSControl {
     @IBInspectable var labelColor: NSColor! = NSColor(calibratedRed: 137/255, green: 185/255, blue: 175/255, alpha: 1.0)
     @IBInspectable var selectionColor: NSColor! = NSColor.whiteColor()
 
-    @IBInspectable var fontSize: CGFloat = 16
+    @IBInspectable var fontSize: CGFloat = 14
 
     /// Padding left and right
-    @IBInspectable var buttonPadding: CGFloat = 10
+    @IBInspectable var buttonPadding: CGFloat = 8
 
     private var leftButtonList = [KSButton]()
     private var rightButtonList = [KSButton]()
 
+    // Default image position would be to left of Button Label
     public var leftImagePosition = NSCellImagePosition.ImageLeft
     public var rightImagePosition = NSCellImagePosition.ImageLeft
 
     var selectionType: SelectionType = .One {
         didSet {
+            // Selection Type change requires removal of all selected buttons
             self.selectedButtons = []
         }
     }
@@ -119,7 +125,7 @@ public class KSTabView: NSControl {
         return self
     }
 
-    private func _pushButton(identifier: String, title: String?, image: NSImage?, alternateImage: NSImage?, align: NSLayoutAttribute) {
+    private func _pushButton(identifier: String, title: String?, image: NSImage?, alternateImage: NSImage?, align: AlignSide) {
 
         var imagePosition: NSCellImagePosition = NSCellImagePosition.NoImage
         if image != nil {
@@ -144,7 +150,7 @@ public class KSTabView: NSControl {
 
         var formatString: String!
         var viewsDictionary: [String: AnyObject]!
-        if align == NSLayoutAttribute.Left {
+        if align == AlignSide.Left {
             if let leftButton = leftButtonList.last {
                 viewsDictionary = ["button" : button, "leftButton" : leftButton]
                 formatString = "H:[leftButton][button(size)]"
@@ -153,7 +159,7 @@ public class KSTabView: NSControl {
                 formatString = "H:|[button(size)]"
             }
             leftButtonList.append(button)
-        } else if align == NSLayoutAttribute.Right {
+        } else if align == AlignSide.Right {
             if let rightButton = rightButtonList.last {
                 viewsDictionary = ["button" : button, "rightButton" : rightButton]
                 formatString = "H:[button(size)][rightButton]"
@@ -183,7 +189,7 @@ public class KSTabView: NSControl {
         switch selectionType {
         case .One:
             self.selectedButtons = [sender.identifier!]
-        case .Any:
+        case .Many:
             if sender.selected {
                 self.selectedButtons = self.selectedButtons.filter{ $0 != sender.identifier }
             } else {
