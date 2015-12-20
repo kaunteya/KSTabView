@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9060"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -676,14 +676,12 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="fgJ-g9-tpj"/>
                                 </constraints>
-                                <animations/>
                                 <connections>
                                     <action selector="actionOccured:" target="XfG-lQ-9wD" id="ZfQ-Em-usX"/>
                                 </connections>
                             </customView>
                             <button horizontalHuggingPriority="1000" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="scb-kh-R46">
                                 <rect key="frame" x="5" y="111" width="93" height="32"/>
-                                <animations/>
                                 <buttonCell key="cell" type="push" title="Add Left" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nD3-N7-GQC">
                                     <behavior key="behavior" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -694,7 +692,6 @@
                             </button>
                             <button horizontalHuggingPriority="1000" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mHR-9G-M0x">
                                 <rect key="frame" x="95" y="111" width="118" height="32"/>
-                                <animations/>
                                 <buttonCell key="cell" type="push" title="Remove Left" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="C6w-ww-A1u">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -705,7 +702,6 @@
                             </button>
                             <button horizontalHuggingPriority="1000" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ogd-br-RH1">
                                 <rect key="frame" x="258" y="111" width="127" height="32"/>
-                                <animations/>
                                 <buttonCell key="cell" type="push" title="Remove Right" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="ONQ-uc-BOZ">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -716,7 +712,6 @@
                             </button>
                             <button horizontalHuggingPriority="1000" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yNj-Xy-b9u">
                                 <rect key="frame" x="546" y="14" width="92" height="32"/>
-                                <animations/>
                                 <buttonCell key="cell" type="push" title="Clear All" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bj5-jY-py9">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -727,7 +722,6 @@
                             </button>
                             <button horizontalHuggingPriority="1000" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mJr-jx-XCa">
                                 <rect key="frame" x="110" y="13" width="132" height="32"/>
-                                <animations/>
                                 <buttonCell key="cell" type="push" title="Select Multiple" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yVE-Z1-JSv">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -738,7 +732,6 @@
                             </button>
                             <segmentedControl verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uwq-Ts-e1D">
                                 <rect key="frame" x="234" y="192" width="176" height="24"/>
-                                <animations/>
                                 <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="zAe-7I-AXi">
                                     <font key="font" metaFont="system"/>
                                     <segments>
@@ -753,21 +746,18 @@
                             </segmentedControl>
                             <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="1SL-ec-JSs">
                                 <rect key="frame" x="11" y="178" width="621" height="5"/>
-                                <animations/>
                                 <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                 <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <font key="titleFont" metaFont="system"/>
                             </box>
                             <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="UsF-aF-GVG">
                                 <rect key="frame" x="11" y="80" width="621" height="5"/>
-                                <animations/>
                                 <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                 <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <font key="titleFont" metaFont="system"/>
                             </box>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sjg-0O-Nyz">
                                 <rect key="frame" x="18" y="51" width="134" height="21"/>
-                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Button Selection" id="MV4-bd-eQD">
                                     <font key="font" metaFont="system" size="17"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -776,7 +766,6 @@
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dsC-hB-HD2">
                                 <rect key="frame" x="18" y="194" width="119" height="21"/>
-                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Selection Type" id="uiX-bf-ZRY">
                                     <font key="font" metaFont="system" size="17"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -785,7 +774,6 @@
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TqL-z7-Dhk">
                                 <rect key="frame" x="18" y="149" width="183" height="21"/>
-                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Add / Remove Buttons" id="zdX-YK-6FC">
                                     <font key="font" metaFont="system" size="17"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -794,7 +782,6 @@
                             </textField>
                             <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3pW-WT-TwV">
                                 <rect key="frame" x="392" y="116" width="242" height="24"/>
-                                <animations/>
                                 <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="XBh-o1-iZ9">
                                     <font key="font" metaFont="system"/>
                                     <segments>
@@ -812,7 +799,6 @@
                             </segmentedControl>
                             <button horizontalHuggingPriority="1000" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eTa-lc-zcM">
                                 <rect key="frame" x="5" y="13" width="108" height="32"/>
-                                <animations/>
                                 <buttonCell key="cell" type="push" title="Select One" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mmX-mZ-gzI">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES" accelerator="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -823,7 +809,6 @@
                             </button>
                             <button horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GPL-1E-WZ5">
                                 <rect key="frame" x="431" y="14" width="121" height="32"/>
-                                <animations/>
                                 <buttonCell key="cell" type="push" title="Log selection" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="E6B-RI-YnY">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -831,6 +816,13 @@
                                 <connections>
                                     <action selector="logSelection:" target="XfG-lQ-9wD" id="h9c-aF-MCj"/>
                                 </connections>
+                            </button>
+                            <button horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dmc-Px-Ami">
+                                <rect key="frame" x="431" y="187" width="164" height="32"/>
+                                <buttonCell key="cell" type="push" title="This title is visible" bezelStyle="rounded" image="NSApplicationIcon" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="PVu-kZ-x0u">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
                             </button>
                         </subviews>
                         <constraints>
@@ -853,6 +845,7 @@
                             <constraint firstItem="sjg-0O-Nyz" firstAttribute="leading" secondItem="UsF-aF-GVG" secondAttribute="leading" constant="9" id="PaH-aw-I6T"/>
                             <constraint firstItem="scb-kh-R46" firstAttribute="top" secondItem="TqL-z7-Dhk" secondAttribute="bottom" constant="10" id="VVC-qX-Wbk"/>
                             <constraint firstItem="Ogd-br-RH1" firstAttribute="centerY" secondItem="3pW-WT-TwV" secondAttribute="centerY" id="WVW-bO-Pwe"/>
+                            <constraint firstItem="dmc-Px-Ami" firstAttribute="centerY" secondItem="Uwq-Ts-e1D" secondAttribute="centerY" id="Z8Q-V4-Bar"/>
                             <constraint firstItem="TqL-z7-Dhk" firstAttribute="top" secondItem="1SL-ec-JSs" secondAttribute="bottom" constant="10" id="aXA-lr-MZl"/>
                             <constraint firstItem="2gq-1a-xRX" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="bdv-y4-mxs"/>
                             <constraint firstAttribute="trailing" secondItem="1SL-ec-JSs" secondAttribute="trailing" constant="11" id="de8-bd-EeQ"/>
@@ -860,6 +853,7 @@
                             <constraint firstItem="1SL-ec-JSs" firstAttribute="leading" secondItem="scb-kh-R46" secondAttribute="leading" id="eAU-Gf-yOo"/>
                             <constraint firstItem="dsC-hB-HD2" firstAttribute="baseline" secondItem="Uwq-Ts-e1D" secondAttribute="baseline" constant="2" id="hhY-Kk-itR"/>
                             <constraint firstItem="mHR-9G-M0x" firstAttribute="centerY" secondItem="scb-kh-R46" secondAttribute="centerY" id="j0A-IV-i65"/>
+                            <constraint firstItem="dmc-Px-Ami" firstAttribute="leading" secondItem="Uwq-Ts-e1D" secondAttribute="trailing" constant="29" id="jmc-8n-tKD"/>
                             <constraint firstItem="3pW-WT-TwV" firstAttribute="trailing" secondItem="1SL-ec-JSs" secondAttribute="trailing" id="mb0-eB-zAu"/>
                             <constraint firstItem="mJr-jx-XCa" firstAttribute="centerY" secondItem="eTa-lc-zcM" secondAttribute="centerY" id="oeY-aE-LYO"/>
                             <constraint firstItem="1SL-ec-JSs" firstAttribute="top" secondItem="Uwq-Ts-e1D" secondAttribute="bottom" constant="13" id="pby-0U-7vS"/>
@@ -870,7 +864,6 @@
                             <constraint firstItem="sjg-0O-Nyz" firstAttribute="top" secondItem="UsF-aF-GVG" secondAttribute="bottom" constant="10" id="vnV-Xg-qW9"/>
                             <constraint firstItem="1SL-ec-JSs" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="11" id="ybp-s4-Gkh"/>
                         </constraints>
-                        <animations/>
                     </view>
                     <connections>
                         <outlet property="tabView" destination="2gq-1a-xRX" id="kvd-J8-IL6"/>
@@ -881,4 +874,7 @@
             <point key="canvasLocation" x="-133.5" y="469.5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="NSApplicationIcon" width="128" height="128"/>
+    </resources>
 </document>
