@@ -248,7 +248,7 @@ extension KSTabView {
             self.identifier = aButton.identifier
             self.button = aButton
             self.target = tabView
-            self.action = "buttonPressed:"
+            self.action = #selector(buttonPressed)
             self.addSubview(self.button)
             self.button.frame.origin = NSMakePoint(parentTabView.buttonPadding, selectionLineHeight * 1.5)
 
