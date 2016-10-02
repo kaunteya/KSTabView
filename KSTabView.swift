@@ -21,8 +21,10 @@ public class KSTabView: NSControl {
 
     @IBInspectable var labelColor: NSColor! = NSColor(calibratedRed: 137/255, green: 185/255, blue: 175/255, alpha: 1.0)
     @IBInspectable var selectionColor: NSColor! = NSColor.whiteColor()
-
+    @IBInspectable var underlineColor: NSColor! = NSColor.whiteColor()
+    
     @IBInspectable var fontSize: CGFloat = 16
+    public var labelFont: NSFont = NSFont.labelFontOfSize(16) // wish this was @IBInspectable
     @IBInspectable var buttonPadding: CGFloat = 10
 
     private var leftButtonList = [KSButton]()
@@ -66,7 +68,18 @@ public class KSTabView: NSControl {
     required public init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-
+    
+    override public func awakeFromNib()
+    {
+        // if fontSize was changed via the inspector, make sure it's changed here too...
+        if fontSize != 16.0
+        {
+            if let newFont = NSFont(name: self.labelFont.fontName, size: fontSize)
+            {
+                self.labelFont = newFont
+            }
+        }
+    }
     override public func drawRect(dirtyRect: NSRect) {
         backgroundColor.setFill()
         NSRectFillUsingOperation(dirtyRect, NSCompositingOperation.CompositeSourceOver)
@@ -212,7 +225,7 @@ extension KSTabView {
         var selected = false {
             didSet {
                 let activeColor = self.selected ? parentTabView.selectionColor : parentTabView.labelColor
-                button.setAttributedString(parentTabView.fontSize, color: activeColor)
+                button.setAttributedString(parentTabView.labelFont, color: activeColor)
                 button.state = self.selected ? NSOnState : NSOffState
 
                 CATransaction.begin()
@@ -241,14 +254,14 @@ extension KSTabView {
 
         init(aButton: NSButton, tabView: KSTabView) {
             parentTabView = tabView
-            selectionLineHeight = parentTabView.fontSize / 5
+            selectionLineHeight = parentTabView.labelFont.pointSize / 5
 
             super.init(frame: NSZeroRect)
             self.wantsLayer = true
             self.identifier = aButton.identifier
             self.button = aButton
             self.target = tabView
-            self.action = "buttonPressed:"
+            self.action = #selector(buttonPressed)
             self.addSubview(self.button)
             self.button.frame.origin = NSMakePoint(parentTabView.buttonPadding, selectionLineHeight * 1.5)
 
@@ -257,7 +270,7 @@ extension KSTabView {
             makeUnderLayer(frameWidth)
 
             /// Frame Size
-            let frameHeight = tabView.fontSize * 3.0
+            let frameHeight = tabView.labelFont.pointSize * 3.0
             self.frame.size = NSSize(width: frameWidth, height: frameHeight)
         }
 
@@ -269,7 +282,7 @@ extension KSTabView {
             underLayer.path = path.CGPath
             underLayer.strokeEnd = 0
             underLayer.lineWidth = selectionLineHeight
-            underLayer.strokeColor = NSColor.whiteColor().CGColor
+            underLayer.strokeColor = parentTabView.underlineColor.CGColor
             self.layer!.addSublayer(underLayer)
         }
 
@@ -309,8 +322,7 @@ extension NSButton {
         }
     }
 
-    func setAttributedString(fontSize: CGFloat, color: NSColor) {
-        let font = NSFont.labelFontOfSize(fontSize)
+    func setAttributedString(font: NSFont, color: NSColor) {
         let colorTitle = NSMutableAttributedString(attributedString: self.attributedTitle)
 
         let titleRange = NSMakeRange(0, colorTitle.length)
@@ -327,10 +339,10 @@ extension NSButton {
         self.imagePosition = oldImagePosition
         self.bordered = false
         self.enabled = false
-        self.image?.size = NSMakeSize(tabView.fontSize * 1.7, tabView.fontSize * 1.7)
-        self.alternateImage?.size = NSMakeSize(tabView.fontSize * 1.7, tabView.fontSize * 1.7)
+        self.image?.size = NSMakeSize(tabView.labelFont.pointSize * 1.7, tabView.labelFont.pointSize * 1.7)
+        self.alternateImage?.size = NSMakeSize(tabView.labelFont.pointSize * 1.7, tabView.labelFont.pointSize * 1.7)
 
-        self.setAttributedString(tabView.fontSize, color: tabView.labelColor)
+        self.setAttributedString(tabView.labelFont, color: tabView.labelColor)
         self.sizeToFit()
     }
 }
