@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E3377C5D1DA1159100B1367B /* KSTabView.podspec in Resources */ = {isa = PBXBuildFile; fileRef = E3377C5C1DA1159100B1367B /* KSTabView.podspec */; };
 		E3D280F81B2CA6D600F15CCC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D280F71B2CA6D600F15CCC /* AppDelegate.swift */; };
 		E3D280FA1B2CA6D600F15CCC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D280F91B2CA6D600F15CCC /* ViewController.swift */; };
 		E3D280FC1B2CA6D600F15CCC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3D280FB1B2CA6D600F15CCC /* Images.xcassets */; };
@@ -27,6 +28,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E3377C5C1DA1159100B1367B /* KSTabView.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = KSTabView.podspec; sourceTree = SOURCE_ROOT; };
+		E3377C5E1DA1159B00B1367B /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
+		E3377C5F1DA115AF00B1367B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		E3D280F21B2CA6D600F15CCC /* KSTabView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KSTabView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3D280F61B2CA6D600F15CCC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E3D280F71B2CA6D600F15CCC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -93,6 +97,9 @@
 		E3D280F51B2CA6D600F15CCC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E3377C5C1DA1159100B1367B /* KSTabView.podspec */,
+				E3377C5F1DA115AF00B1367B /* README.md */,
+				E3377C5E1DA1159B00B1367B /* LICENSE */,
 				E3D280F61B2CA6D600F15CCC /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -200,6 +207,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3D280FC1B2CA6D600F15CCC /* Images.xcassets in Resources */,
+				E3377C5D1DA1159100B1367B /* KSTabView.podspec in Resources */,
 				E3D280FF1B2CA6D600F15CCC /* Main.storyboard in Resources */,
 				E3DF3F2F1B2EE7F60078AEE5 /* demo.png in Resources */,
 			);
