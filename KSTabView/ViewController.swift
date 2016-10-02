@@ -12,57 +12,57 @@ class ViewController: NSViewController {
 
     @IBOutlet weak var tabView: KSTabView!
 
-    @IBAction func selectionTypeChanged(sender: NSSegmentedControl) {
+    @IBAction func selectionTypeChanged(_ sender: NSSegmentedControl) {
         switch sender.selectedSegment {
-        case 0: tabView.selectionType = .None
-        case 1: tabView.selectionType = .One
-        case 2: tabView.selectionType = .Many
+        case 0: tabView.selectionType = .none
+        case 1: tabView.selectionType = .one
+        case 2: tabView.selectionType = .many
         default: ()
         }
     }
     
-    @IBAction func actionOccured(sender: NSString?) {
+    @IBAction func actionOccured(_ sender: NSString?) {
         print("\(sender) pressed")
     }
     
-    @IBAction func addLeft(sender: AnyObject) {
+    @IBAction func addLeft(_ sender: AnyObject) {
         tabView.removeLeftButtons()
-        tabView.appendItem("reload", title: "Reload", align: .Left)
-        tabView.appendItem("find", title: "Find", align: .Left)
+        tabView.appendItem("reload", title: "Reload", align: .left)
+        tabView.appendItem("find", title: "Find", align: .left)
     }
     
-    @IBAction func leftClean(sender: AnyObject) {
+    @IBAction func leftClean(_ sender: AnyObject) {
         tabView.removeLeftButtons()
     }
 
-    @IBAction func addRight(sender: NSSegmentedControl) {
+    @IBAction func addRight(_ sender: NSSegmentedControl) {
         tabView.imagePositionRightButtonList = NSCellImagePosition(rawValue: UInt(sender.selectedSegment))!
 
         tabView.removeRightButtons()
 
-        tabView.appendItem("facebook", title: "Facebook", image: NSImage(named: "facebook")!, alternateImage: NSImage(named: "altFacebook")!, align: .Right)
-        tabView.appendItem("google", title: "Google", image: NSImage(named: "google")!, align: .Right)
-        tabView.appendItem("instagram", title: "Instagram", image: NSImage(named: "instagram")!, align: .Right)
-        tabView.appendItem("twitter", title: "Twitter", image: NSImage(named: "twitter")!, align: .Right)
+        tabView.appendItem("facebook", title: "Facebook", image: NSImage(named: "facebook")!, alternateImage: NSImage(named: "altFacebook")!, align: .right)
+        tabView.appendItem("google", title: "Google", image: NSImage(named: "google")!, align: .right)
+        tabView.appendItem("instagram", title: "Instagram", image: NSImage(named: "instagram")!, align: .right)
+        tabView.appendItem("twitter", title: "Twitter", image: NSImage(named: "twitter")!, align: .right)
     }
     
-    @IBAction func rightClean(sender: AnyObject) {
+    @IBAction func rightClean(_ sender: AnyObject) {
         tabView.removeRightButtons()
     }
 
-    @IBAction func selectMultiple(sender: NSButton) {
+    @IBAction func selectMultiple(_ sender: NSButton) {
         tabView.selectedButtons = ["google", "twitter", "reload"]
     }
 
-    @IBAction func selectOne(sender: NSButton) {
+    @IBAction func selectOne(_ sender: NSButton) {
         tabView.selectedButtons = ["instagram", ]
     }
 
-    @IBAction func clearSelection(sender: NSButton) {
+    @IBAction func clearSelection(_ sender: NSButton) {
         tabView.selectedButtons = []
     }
 
-    @IBAction func logSelection(sender: NSButton) {
+    @IBAction func logSelection(_ sender: NSButton) {
         Swift.print(tabView.selectedButtons)
     }
 
